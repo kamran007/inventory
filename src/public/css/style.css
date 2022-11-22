@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container-login{
+    padding-top: 10%;
+    height: 100%;
+    width: 100%;
+    background-image: url('/static/images/bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    
+}
+.container-signup{
+    padding-top: 6%;
+    height: 100vh;
+    width: 100vw;
+    background-image: url('/static/images/bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    
+}
+:is(.container-login, .container-signup) .card h3{
+    margin: 5px auto;
+}
+:is(.container-login, .container-signup)  .card{
+    max-width: 600px;
+    margin: auto auto;
+}
+.container-login .card{
+    background:rgba(13,17,55,0.5);
+}
+.container-signup .card{
+    background-color: rgba(12,57,23,.4);
+}
+:is(.container-login, .container-signup)  .card-body{
+    margin: 4px 20px;
+}
+
+
+/* Dashboard */
+:root{
+    --offcanvas-width:270px;
+    --top-navbar-height:56px;
+}
+
+.sidebar-nav{
+    width: var(--offcanvas-width)
+
+}
+.sidebar-link{
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-link .right-icon{
+    display: inline-flex;
+    transform: all ease 0.25s;
+}
+.sidebar-link[aria-expanded="true"] .right-icon{
+    transform: rotate(180deg);
+}
+.main{
+    margin-top: var(--top-navbar-height);
+}
+
+@media (min-width:992px){
+    body{
+        overflow: auto !important;
+    }
+
+    .offcanvas-backdrop::before{
+        display: none;
+    }
+    .sidebar-nav{
+        transform: none;
+        visibility: visible !important;
+        top: var(--top-navbar-height);
+        height: calc(100%-var(--offcanvas-width));
+
+    }
+    .main{
+        margin-left: var(--offcanvas-width);
+    }
+}
+
+/* ---------------------sale page----------- */
+#add-container{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 700px;
+    margin-top: 20px;
+}
