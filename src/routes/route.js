@@ -1,5 +1,6 @@
 const authRoute = require('./authRoute')
 const dashRoute = require('./dashboardRoute')
+const productRoute = require('./productRoute')
 
 const Flash = require('../utilities/Flash')
 
@@ -11,6 +12,10 @@ const routes=[
     {
         path:'/dashboard',
         handler: dashRoute
+    },
+    {
+        path:'/product',
+        handler:productRoute
     },
     {
         path:'/',
