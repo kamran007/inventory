@@ -9,7 +9,7 @@ const StockholderSchema=new Schema({
     country: String,
     type:{
         type: String,
-        enum:['buyer','seller'],
+        enum:['exporter','customer'],
         required:true
     },
     status:{

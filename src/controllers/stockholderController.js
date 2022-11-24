@@ -7,7 +7,7 @@ module.exports.getAllStockholder= async(req,res)=>{
     try{
         let stockholders= await Stockholder.find()
         res.render('pages/stockholder.ejs',{
-            title: 'Stockholder',
+            title: 'Stockholder List',
             stockholders,
             flashMessage:Flash.getMessage(req)
         })
@@ -51,7 +51,7 @@ module.exports.getAllCustomer= async (req,res)=>{
 
 module.exports.getCustomerInsertForm=(req,res)=>{
     res.render('pages/stockholderInsertForm',{
-        title:'Customer',
+        title:'customer',
         errors:{},
         flashMessage: Flash.getMessage(req)
     })
@@ -59,7 +59,7 @@ module.exports.getCustomerInsertForm=(req,res)=>{
 
 module.exports.getExporterInsertForm=(req,res)=>{
     res.render('pages/stockholderInsertForm',{
-        title:'Exporter',
+        title:'exporter',
         errors:{},
         flashMessage: Flash.getMessage(req)
     })
@@ -68,6 +68,7 @@ module.exports.getExporterInsertForm=(req,res)=>{
 module.exports.postSingleStockholder=(req,res)=>{
 
     let {name, country, type, status, address, phone, email} =req.body
+    status = status === 'on'? true: false;
     let errors=validationResult(req).formatWith(errorFormatter)
     if(!errors.isEmpty()){
         req.flash('fail','check your form')
@@ -91,7 +92,7 @@ module.exports.postSingleStockholder=(req,res)=>{
 }
 
 module.exports.updateSingleStockholder= async (req,res)=>{
-    let {id,name,bio,address, phone, type,status, payable, paid,due }=req.body
+    let {id,name, country, type, status, address, phone, email }=req.body
     //console.log(id,name,bio,address, phone, type,status, payable, paid,due)
     try{
         await Stockholder.findOneAndUpdate(
@@ -100,14 +101,12 @@ module.exports.updateSingleStockholder= async (req,res)=>{
             },{
                 $set:{
                     name,
-                    bio,
-                    address,
-                    phone,
+                    country,
                     type,
                     status: status=='on' ? true: false,
-                    payable: parseInt(payable),
-                    paid: parseInt(paid),
-                    due: parseInt(due)
+                    address,
+                    phone,
+                    email
                 }
             },{
                 new:true

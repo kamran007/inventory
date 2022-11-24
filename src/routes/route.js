@@ -1,8 +1,9 @@
-const authRoute = require('./authRoute')
-const dashRoute = require('./dashboardRoute')
-const productRoute = require('./productRoute')
+const authRoute = require('./authRoute');
+const dashRoute = require('./dashboardRoute');
+const productRoute = require('./productRoute');
+const stockholderRoute = require('./stockholderRoute');
 
-const Flash = require('../utilities/Flash')
+const Flash = require('../utilities/Flash');
 
 const routes=[
     {
@@ -16,6 +17,10 @@ const routes=[
     {
         path:'/product',
         handler:productRoute
+    },
+    {
+        path:'/stockholder',
+        handler: stockholderRoute
     },
     {
         path:'/',
@@ -32,5 +37,5 @@ const routes=[
 module.exports = (app) =>{
     routes.forEach((ele)=>{
         app.use(ele.path, ele.handler)
-    })
+    });
 }
