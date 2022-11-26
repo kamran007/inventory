@@ -26,6 +26,7 @@ const saleSchema=new Schema({
     discount:Number,
     paid: Number,
     due:Number,
+    date: String,
     paymentType: String,
     paymentRef:{
         type: Schema.Types.ObjectId,

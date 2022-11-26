@@ -2,9 +2,9 @@ const Stockholder = require('../models/stockholder')
 const User=require('../models/user')
 const Product = require('../models/product')
 const Sale = require('../models/sale')
+const Check = require('../models/check')
 
 const Flash = require('../utilities/Flash')
-const product = require('../models/product')
 module.exports.getAllSale = async (req, res) => {
     try{
         let sales=await Sale.find().populate([{
@@ -64,8 +64,8 @@ module.exports.getSaleInsertForm = async (req, res) => {
 
 }
 module.exports.postSaleInsertForm = async (req, res) => {
-    let { customer, item, itemPrice, itemUnit, itemTotal, payable, discount, paid, due, paymentType,paymentRef,comment} = req.body
-    console.log(customer);
+    let { customer, item, itemPrice, itemUnit, itemTotal, payable, discount, paid, due,date, paymentType,paymentRef,depositDate,comment} = req.body
+
     try {
         let i = Object.values(item)[0].split(',')
         let u = Object.values(itemUnit)[0].split(',')
