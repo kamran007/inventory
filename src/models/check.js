@@ -3,7 +3,11 @@ const {Schema, model} = require('mongoose');
 const checkSchema = new Schema({
     invoice:{
         type: Schema.Types.ObjectId,
-        ref:'BuyberOrder',
+        ref:'Sale',
+        required:true
+    },
+    checkInfo:{
+        type:String,
         required:true
     },
     depositDate:{

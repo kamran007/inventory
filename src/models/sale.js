@@ -26,13 +26,8 @@ const saleSchema=new Schema({
     discount:Number,
     paid: Number,
     due:Number,
-    date: String,
+    date: Date,
     paymentType: String,
-    paymentRef:{
-        type: Schema.Types.ObjectId,
-        ref:'Check',
-        required: false
-    },
     comment: String
 },{
     timestamps:true

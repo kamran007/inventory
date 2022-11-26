@@ -89,11 +89,18 @@ module.exports.postSaleInsertForm = async (req, res) => {
             paid,
             due,
             paymentType,
-            paymentRef,
+            date,
             comment
         })
-        console.log(sale)
-        await sale.save()
+        let newSale = await sale.save();
+        if(paymentType === 'Check'){
+            const check = new Check({
+                invoice: newSale._id,
+                checkInfo: paymentRef,
+                depositDate
+            })
+            await check.save();
+        }
         req.flash('success', 'New Sale Added')
         res.redirect('/sale/insert')
 
