@@ -49,7 +49,14 @@ in_paid.addEventListener('mouseout',(event)=>{
 let selectedRow=null
 btn_add.addEventListener('click',(event)=>{
     product_item=readProductData()
-    if(selectedRow==null){
+    let table=document.getElementById('productTable').getElementsByTagName('tbody')[0]
+    let length=table.rows.length
+    let item=[];
+    for( let i=0; i<length; i++){
+        item[i]=table.rows[i].cells[0].innerHTML
+    }
+    
+    if(selectedRow==null && !(item.includes(product_item.id))){
         insertNewRow(product_item)
     }else{
         updateRow(product_item)
@@ -59,6 +66,7 @@ btn_add.addEventListener('click',(event)=>{
     resetProductForm()
     let payable=sumTableData(4)
     in_payable.value=payable
+    
 })
 
 
