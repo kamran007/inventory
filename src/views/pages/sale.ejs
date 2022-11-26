@@ -1,0 +1,103 @@
+<%- include('./../partials/head.ejs') %>
+    <div class="main">
+        <div class="container">
+            <div class="card">
+                <div class="card-header text-center">
+                    <%= title %>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="productTable" class="table table-striprd" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Sale By</th>
+                                    <th scope="col">Item | p/U | Unit | Total</th>
+                                    <th scope="col">Total Payable</th>
+                                    <th scope="col">Total Discount</th>
+                                    <th scope="col">Total Paid</th>
+                                    <th scope="col">Due</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (let sale of sales){ %>
+                                    <tr>
+                                        <td>
+                                            <%= sale.createdAt.toLocaleString() %>
+                                        </td>
+                                        <td>
+                                            <%=sale.saleTo.name %>
+                                        </td>
+                                        <td>
+                                            <%=sale.saleBy.username %>
+                                        </td>
+                                        <td>
+                                            <table class="table table-bordered">
+                                                <!-- <thead>
+                                                    <tr>
+                                                        <th scope="col">Product</th>
+                                                        <th scope="col">Price/Unit</th>
+                                                        <th scope="col">Quantity</th>
+                                                        <th scope="col">Total</th>
+                                                    </tr>
+                                                </thead> -->
+                                                <tbody>
+                                                    <% for (let item of sale.item){ %>
+                                                        <tr>
+                                                        <td><%= item.itemId.productName %></td>
+                                                        <td><%= item.price %></td>
+                                                        <td><%= item.quantity %></td>
+                                                        <td><%= item.total %></td>
+                                                        </tr>
+                                                    <% } %>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <%=sale.payable %>
+                                        </td>
+                                        <td>
+                                            <%=sale.discount %>
+                                        </td>
+                                        <td>
+                                            <%=sale.paid %>
+                                        </td>
+                                        <td>
+                                            <%=sale.due %>
+                                        </td>
+                                        <td>
+                                            <a href="/sale/update/<%= sale._id %>" class="btn btn-primary">Edit</a>
+                                            <a href="/sale/delete/<%= sale._id %>" class="btn btn-danger">Delete</a>
+                                        </td>
+                                        <% } %>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4"></th>
+                                    <th><%= summary? summary.total_payable : "0" %></th>
+                                    <th><%= summary? summary.total_discount : "0" %></th>
+                                    <th><%= summary? summary.total_paid: "0" %></th>
+                                    <th><%= summary? summary.total_due : "0" %></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>
+                    <%- include('./../partials/alert') -%>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('./../partials/tail.ejs') %>
+        <script>
+            $(document).ready(function () {
+                $('#productTable').DataTable();
+            });
+        </script>
+        </body>
+
+        </html>

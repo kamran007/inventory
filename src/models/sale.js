@@ -1,37 +1,39 @@
 
 const {Schema,model}=require('mongoose')
 
-const buyer_orderSchema=new Schema({
-    sale_to:{
+const saleSchema=new Schema({
+    saleTo:{
         type:Schema.Types.ObjectId,
         ref: 'Stockholder',
         required:true
     },
-    sale_by:{
+    saleBy:{
         type:Schema.Types.ObjectId,
         ref: 'User',
         required:true
     },
     item:[{
-        itemName:{
+        itemId:{
             type:Schema.Types.ObjectId,
             ref: 'Product',
             required:true
         },
-        price_per_unit:Number,
+        price:Number,
         quantity:Number,
+        total:Number
     }],
     payable: Number,
     discount:Number,
     paid: Number,
     due:Number,
-    payment_type: String,
-    payment_ref:{
+    paymentType: String,
+    paymentRef:{
         type: Schema.Types.ObjectId,
-        ref:'Check'
+        ref:'Check',
+        required: false
     },
     comment: String
 },{
     timestamps:true
 })
-module.exports=model('BuyerOrder',buyer_orderSchema)
+module.exports=model('Sale',saleSchema)

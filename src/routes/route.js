@@ -2,6 +2,7 @@ const authRoute = require('./authRoute');
 const dashRoute = require('./dashboardRoute');
 const productRoute = require('./productRoute');
 const stockholderRoute = require('./stockholderRoute');
+const saleRoute = require('./saleRoute')
 
 const Flash = require('../utilities/Flash');
 
@@ -21,6 +22,10 @@ const routes=[
     {
         path:'/stockholder',
         handler: stockholderRoute
+    },
+    {
+        path: '/sale',
+        handler: saleRoute,
     },
     {
         path:'/',
