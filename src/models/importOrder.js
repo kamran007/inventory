@@ -1,8 +1,8 @@
 
 const {Schema,model}=require('mongoose')
 
-const import_orderSchema=new Schema({
-    import_form:{
+const importOrderSchema=new Schema({
+    importForm:{
         type:Schema.Types.ObjectId,
         ref: 'Stockholder',
         required:true
@@ -13,12 +13,12 @@ const import_orderSchema=new Schema({
             ref: 'Product',
             required:true
         },
-        price_per_unit:Number,
+        unitPrice:Number,
         quantity:Number,
     }],
-    other_cost:[
+    otherCost:[
         {
-            cost_description: String,
+            costDescription: String,
             amount: Number
         }
     ],
@@ -26,4 +26,4 @@ const import_orderSchema=new Schema({
 },{
     timestamps:true
 })
-module.exports=model('ImportOrder',import_orderSchema)
+module.exports=model('ImportOrder',importOrderSchema)

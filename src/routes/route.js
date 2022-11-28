@@ -3,6 +3,7 @@ const dashRoute = require('./dashboardRoute');
 const productRoute = require('./productRoute');
 const stockholderRoute = require('./stockholderRoute');
 const saleRoute = require('./saleRoute')
+const ImportOrderRoute = require('./importOrderRoute')
 
 const Flash = require('../utilities/Flash');
 
@@ -26,6 +27,10 @@ const routes=[
     {
         path: '/sale',
         handler: saleRoute,
+    },
+    {
+        path: '/importOrder',
+        handler: ImportOrderRoute
     },
     {
         path:'/',
