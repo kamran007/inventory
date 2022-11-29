@@ -35,10 +35,7 @@ const routes=[
     {
         path:'/',
         handler:(req,res)=>{
-            res.render('pages/login',{
-                title: 'LogIn',
-                errors:{},
-                flashMessage: Flash.getMessage(req)
+            res.render('pages/404',{
             })
         }
     }
