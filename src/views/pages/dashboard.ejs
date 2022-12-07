@@ -2,6 +2,64 @@
 <%- include('./../partials/head.ejs') -%>
 <div class="main">
     <div class="container-fluid">
+        <div class="card-deck">
+                        <div class="card p-2 pl-3 pr-3">
+                            <div class="media align-items-center">
+                                <div class="doughnut-chart-wrapper mr-1"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                                    <div class="doughnut-chart-text">
+                                        <div>
+                                            <h3 class="text-danger">12%</h3>
+                                            <small>TODAY</small>
+                                        </div>
+                                    </div>
+                                    <canvas class="doughnut-chart chartjs-render-monitor" data-percent="12" width="100" height="100" style="display: block;"></canvas>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="mb-0">$1,020</h3>
+                                    <span>Total Sales</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-2 pl-3 pr-3">
+                            <div class="media align-items-center">
+                                <div class="doughnut-chart-wrapper mr-1"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                                    <div class="doughnut-chart-text">
+                                        <div>
+                                            <h3 class="text-success">68%</h3>
+                                            <small>MONTH</small>
+                                        </div>
+                                    </div>
+                                    <canvas class="doughnut-chart chartjs-render-monitor" data-percent="68" width="100" height="100" style="display: block;"></canvas>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="mb-0">$6,670</h3>
+                                    <span>Sales for June</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-2 pl-3 pr-3">
+
+                            <div class="media justify-items-center align-items-center h-md-100">
+                                <i class="material-icons md-48 text-link-color">account_circle</i>
+                                <div class="media-body pl-2">
+                                    <h3 class="mb-0 text">87%</h3>
+                                    <span>Sign-Up Percentage</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="card p-2 pl-3 pr-3">
+                            <div class="media justify-items-center align-items-center h-md-100">
+                                <i class="material-icons text-success md-48">check_circle</i>
+                                <div class="media-body pl-2">
+                                    <h4 class="m-0">Network Stats</h4>
+                                    <span>All systems working!</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
         <div class="row">
             <div class="col-md-12 fw-12 fs-3">Dashboard</div>
             <%- include('./../partials/alert') -%>

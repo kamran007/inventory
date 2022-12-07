@@ -76,7 +76,7 @@ module.exports.updateProduct= async (req,res)=>{
             }
         )
         req.flash('success',`${productName} is updated`)
-        res.redirect('/dashboard')
+        res.redirect('/product')
 
     }
     catch(e){
@@ -89,7 +89,7 @@ module.exports.deleteProduct=async (req,res)=>{
         let {id}=req.params
         await Product.findOneAndDelete({_id:id})
         req.flash('success','Product Deleted')
-        res.redirect('/dashboard')
+        res.redirect('/product')
     }
     catch(e){
         console.log(e)

@@ -84,7 +84,7 @@ module.exports.postSingleStockholder=(req,res)=>{
         })
         stockholder.save()
         req.flash('success',`new ${type} created successfully`)
-        return res.redirect('/dashboard')
+        return res.redirect('/stockholder/insert')
     }
     catch(e){
         console.log(e)
@@ -112,7 +112,7 @@ module.exports.updateSingleStockholder= async (req,res)=>{
                 new:true
             })
             req.flash('success',`Shockholder ${name} is updated successfully`)
-            res.redirect('/dashboard')
+            res.redirect('/stockholder')
     }
     catch(e){
         console.log(e)

@@ -1,0 +1,444 @@
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+
+                <div class="container-fluid">
+                    <div class="card-deck">
+                        <div class="card p-2 pl-3 pr-3">
+                            <div class="media align-items-center">
+                                <div class="doughnut-chart-wrapper mr-1">
+                                    <div class="doughnut-chart-text">
+                                        <div>
+                                            <h3 class="text-danger">12%</h3>
+                                            <small>TODAY</small>
+                                        </div>
+                                    </div>
+                                    <canvas class="doughnut-chart" data-percent="12" width="100" height="100"></canvas>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="mb-0">$1,020</h3>
+                                    <span>Total Sales</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-2 pl-3 pr-3">
+                            <div class="media align-items-center">
+                                <div class="doughnut-chart-wrapper mr-1">
+                                    <div class="doughnut-chart-text">
+                                        <div>
+                                            <h3 class="text-success">68%</h3>
+                                            <small>MONTH</small>
+                                        </div>
+                                    </div>
+                                    <canvas class="doughnut-chart" data-percent="68" width="100" height="100"></canvas>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="mb-0">$6,670</h3>
+                                    <span>Sales for June</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-2 pl-3 pr-3">
+
+                            <div class="media justify-items-center align-items-center h-md-100">
+                                <i class="material-icons md-48 text-link-color">account_circle</i>
+                                <div class="media-body pl-2">
+                                    <h3 class="mb-0 text">87%</h3>
+                                    <span>Sign-Up Percentage</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="card p-2 pl-3 pr-3">
+                            <div class="media justify-items-center align-items-center h-md-100">
+                                <i class="material-icons text-success md-48">check_circle</i>
+                                <div class="media-body pl-2">
+                                    <h4 class="m-0">Network Stats</h4>
+                                    <span>All systems working!</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card card-sales">
+                                <div class="card-header bg-faded">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-2">
+                                            <h4 class="card-title">Sales</h4>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <form class="form-inline float-right">
+                                                <div class="form-group mr-3">
+                                                    <label class="control-label mr-1">From:</label>
+                                                    <input type="text" class="datepicker form-control" value="10/24/2017">
+                                                </div>
+                                                <div class="form-group mb-0">
+                                                    <label class="control-label mr-1">To: </label>
+                                                    <input type="text" class="datepicker form-control" value="10/25/2017">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="clearfix"></div>
+                                    <div style="height: 250px; width: 100%;">
+                                        <canvas id="dashboard-chart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                        History
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between pb-1">
+                                        <span>January</span>
+                                        <div>
+                                            <strong>$10,000</strong> <span>/ $20,000</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 52%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between pb-1">
+                                        <span>February</span>
+                                        <div>
+                                            <strong>$8,250</strong> <span>/ $5,230</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between pb-1">
+                                        <span>March</span>
+                                        <div>
+                                            <strong>$1,150</strong> <span>/ $8,120</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 22%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between pb-1">
+                                        <span>April</span>
+                                        <div>
+                                            <strong>$4,625</strong> <span>/ $11,450</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between pb-1">
+                                        <span>May</span>
+                                        <div>
+                                            <strong>$5,875</strong> <span>/ $12,600</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 45%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h4 class="card-title">Latest Orders</h4>
+                            <button class="btn btn-faded btn-sm dropdown-toggle dropdown-no-caret" type="button" id="ordersFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="material-icons align-bottom text-muted md-18">filter_list</i>
+      <span>Filter</span>
+    </button>
+                            <div class="dropdown-menu" aria-labelledby="ordersFilter">
+                                <h6 class="dropdown-header">Sort By</h6>
+                                <a class="dropdown-item" href="#">#</a>
+                                <a class="dropdown-item" href="#">Date</a>
+                                <a class="dropdown-item" href="#">Status</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width:60px">#</th>
+                                        <th style="width:150px" class="text-uppercase">Date</th>
+                                        <th style="width:300px" class="text-uppercase">Description</th>
+                                        <th class="text-uppercase">Client</th>
+                                        <th class="text-right text-uppercase" style="width:80px">Status</th>
+                                        <th class="text-center text-uppercase" style="width:80px">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="align-middle"><a href="#" class="font-weight-normal">4191</a></td>
+                                        <td class="text-muted align-middle">May 24th, 2017</td>
+                                        <td class="align-middle">2 Pack of Juicy UI Components</td>
+                                        <td class="align-middle">
+                                            <a href="#">
+              <i class="material-icons align-bottom">business</i> <span>Ice Rocks</span>
+            </a>
+                                        </td>
+                                        <td class="text-right align-middle">
+                                            <div class="badge badge-success">PAID</div>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <div class="d-flex">
+                                                <button class="btn btn-white btn-sm mr-1">
+                <i class="material-icons md-14 align-middle">edit</i>
+              </button>
+                                                <button class="btn btn-danger btn-sm">
+                <i class="material-icons md-14 align-middle">delete</i>
+              </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle"><a href="#">4190</a></td>
+                                        <td class="text-muted align-middle">May 23th, 2017</td>
+                                        <td class="align-middle">Monthly Subscription</td>
+                                        <td class="align-middle">
+                                            <a href="#">
+              <i class="material-icons align-bottom">business</i> <span>Demo LLC</span>
+            </a>
+                                        </td>
+                                        <td class="text-right align-middle">
+                                            <span class="badge badge-success">PAID</span>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <div class="d-flex">
+                                                <button class="btn btn-white btn-sm mr-1">
+                <i class="material-icons md-14 align-middle">edit</i>
+              </button>
+                                                <button class="btn btn-danger btn-sm">
+                <i class="material-icons md-14 align-middle">delete</i>
+              </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle"><a href="#">4189</a></td>
+                                        <td class="text-muted align-middle">May 22th, 2017</td>
+                                        <td class="align-middle">Flow Theme v.1</td>
+                                        <td class="align-middle">
+                                            <a href="#">
+              <i class="material-icons align-bottom">business</i> <span>Creative Themes</span>
+            </a>
+                                        </td>
+                                        <td class="text-right align-middle">
+                                            <span class="badge badge-success">PAID</span>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <div class="d-flex">
+                                                <button class="btn btn-white btn-sm mr-1">
+                <i class="material-icons md-14 align-middle">edit</i>
+              </button>
+                                                <button class="btn btn-danger btn-sm">
+                <i class="material-icons md-14 align-middle">delete</i>
+              </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle"><a href="#">4189</a></td>
+                                        <td class="text-muted align-middle">May 22th, 2017</td>
+                                        <td class="align-middle">Flow Theme v.1</td>
+                                        <td class="align-middle">
+                                            <a href="#">
+              <i class="material-icons align-bottom">business</i> <span>Creative Themes</span>
+            </a>
+                                        </td>
+                                        <td class="text-right align-middle">
+                                            <span class="badge badge-success">PAID</span>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <div class="d-flex">
+                                                <button class="btn btn-white btn-sm mr-1">
+                <i class="material-icons md-14 align-middle">edit</i>
+              </button>
+                                                <button class="btn btn-danger btn-sm">
+                <i class="material-icons md-14 align-middle">delete</i>
+              </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h4 class="card-title">
+                                            Users Traffic
+                                        </h4>
+                                        <div class="badge badge-warning align-self-middle">+48,6%</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div style="height: 210px; width: 100%;">
+                                        <canvas id="members-chart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="card-group">
+                                    <div class="card card-body text-center">
+                                        <h3 class="mb-0">419</h3>
+                                        <div>REGISTRATIONS</div>
+                                    </div>
+                                    <div class="card card-body text-center">
+                                        <h3 class="mb-0">$19,091</h3>
+                                        <div>SALES</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h4 class="card-title">Recent Activity</h4>
+                                        <span class="text-muted">Updated 10 mins ago</span>
+                                    </div>
+                                    <a href="#" class="text-muted"><i class="material-icons align-middle md-18 " data-toggle="tooltip" data-placement="bottom" title="Refresh">sync</i></a>
+                                </div>
+
+                                <ul class="list-group list-group-flush">
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/andrew-robles-300868.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Andrew Robles</a>
+                                                    <span>changed the due date of task </span>
+                                                    <a href="#">#2156</a>
+                                                </div>
+                                                <small class="text-muted">2 mins ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-warning">update</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/james-garcia-76433.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Karen Smith</a>
+                                                    <span>completed task </span>
+                                                    <a href="#">#2158</a>
+                                                </div>
+                                                <small class="text-muted">35 mins ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-success">check_circle</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/lucas-sankey-378674.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Steven Short</a>
+                                                    <span>completed task </span>
+                                                    <a href="#">#3320</a>
+                                                </div>
+                                                <small class="text-muted">5 hrs ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-success">check_circle</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/kyle-broad-29486.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Tara Knows</a>
+                                                    <span>removed task </span>
+                                                    <a href="#">#1252</a>
+                                                </div>
+                                                <small class="text-muted">2 days ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-danger">remove_circle</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/alex-sheldon-271322.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">John Smith</a>
+                                                    <span>removed task </span>
+                                                    <a href="#">#1255</a>
+                                                </div>
+                                                <small class="text-muted">3 days ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-danger">remove_circle</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/andrew-robles-300868.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Andrew Robles</a>
+                                                    <span>changed the due date of task </span>
+                                                    <a href="#">#2156</a>
+                                                </div>
+                                                <small class="text-muted">2 mins ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-warning">update</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/james-garcia-76433.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Karen Smith</a>
+                                                    <span>completed task </span>
+                                                    <a href="#">#2158</a>
+                                                </div>
+                                                <small class="text-muted">35 mins ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-success">check_circle</i>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
+        </div>
+        <!-- // END drawer-layout -->
+    </div>
+
+   <%- include('../partials/footer.ejs') %>

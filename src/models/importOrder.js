@@ -7,22 +7,21 @@ const importOrderSchema=new Schema({
         ref: 'Stockholder',
         required:true
     },
-    item:[{
-        itemName:{
-            type:Schema.Types.ObjectId,
-            ref: 'Product',
-            required:true
-        },
-        unitPrice:Number,
-        quantity:Number,
-    }],
+    product:{
+        type:Schema.Types.ObjectId,
+        ref: 'Product',
+        required:true
+    },
+    TotalPrice:Number,
+    quantity:Number,
     otherCost:[
         {
             costDescription: String,
             amount: Number
         }
     ],
-    comment: String
+    comment: String,
+    date: Date
 },{
     timestamps:true
 })

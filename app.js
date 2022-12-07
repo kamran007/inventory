@@ -13,10 +13,13 @@ const app=express();
 
 //view engine setting
 app.set('view engine','ejs')
-app.set('views',path.resolve(__dirname,'./src/views'))
+// app.set('views',path.resolve(__dirname,'./src/views'))
+
+app.set('views',path.resolve(__dirname,'./src/view'))
 
 //static folder setup
-app.use('/static',express.static(path.join(__dirname,'./src/public/')))
+// app.use('/static',express.static(path.join(__dirname,'./src/public/')))
+app.use('/assets',express.static(path.join(__dirname,'./src/asset/')))
 
 // import project files
 const setMiddleware = require('./src/middlewares/middleware')

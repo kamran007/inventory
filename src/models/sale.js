@@ -22,6 +22,10 @@ const saleSchema=new Schema({
         quantity:Number,
         total:Number
     }],
+    shippingCost:{
+        type:Number,
+        required: false
+    },
     payable: Number,
     discount:Number,
     paid: Number,
