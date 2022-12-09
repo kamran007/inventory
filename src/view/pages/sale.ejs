@@ -1,0 +1,74 @@
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid">
+                    <h2>Import Order List</h2>
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                               Sale Order
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">#</th>
+                                            <th scope="col" class="text-center">Sale To</th>
+                                            <th scope="col" class="text-center">Product (Name - quantity - price/unit - total)</th>
+                                            <th scope="col" class="text-center">Sub Total</th>
+                                            <th scope="col" class="text-center">discount</th>
+                                            <th scope="col" class="text-center">payable</th>
+                                            <th scope="col" class="text-center">Paid</th>
+                                            <th scope="col" class="text-center">Due</th>
+                                            <th scope="col" class="text-center">Date</th>
+                                            <th scope="col" class="text-center">Sale By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%  for(let sale of sales){ %>
+                                        <tr>
+                                            <th class="align-middle text-center" scope="row"><%= sale._id %></th>
+                                            <td class="align-middle text-center"><%= sale.saleTo.name %></td>
+                                            <td class="align-middle text-center"><% for (let product of sale.item){ %><%= `${product.itemId.productName} - ${product.quantity} - ${product.price} - ${product.total}` %></br><% } %></td>
+                                            <td class="align-middle text-center">
+                                                <%= sale.payable %>
+                                            </td>
+                                            <td class="align-middle text-center"><%= sale.discount %></td>
+                                            <td class="align-middle text-center">
+                                                <%= sale.payable - sale.discount %>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <%= sale.paid %>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <%= sale.due %>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <%= new Date(sale.date).toLocaleString(); %>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <%= sale.saleBy.username %>
+                                            </td>
+                            
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../partials/alert.ejs') %>
+
+            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
+        </div>
+        <!-- // END drawer-layout -->
+    </div>
+
+   <%- include('../partials/footer.ejs') %>

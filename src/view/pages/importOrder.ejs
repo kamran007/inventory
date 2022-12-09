@@ -1,0 +1,65 @@
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid">
+                    <h2>Import Order List</h2>
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                Striped rows
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">#</th>
+                                            <th scope="col" class="text-center">product Name</th>
+                                            <th scope="col" class="text-center">Quantity</th>
+                                            <th scope="col" class="text-center">Total Price</th>
+                                            <th scope="col" class="text-center">Cost Description</th>
+                                            <th scope="col" class="text-center">Total Cost</th>
+                                            <th scope="col" class="text-center">Cost per Unit</th>
+                                            <th scope="col" class="text-center">Import From</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%  for(let importOrder of importOrders){ %>
+                                        <tr>
+                                            <th class="align-middle text-center" scope="row"><%= importOrder._id %></th>
+                                            <td class="align-middle text-center"><%= importOrder.product.productName %></td>
+                                            <td class="align-middle text-center">
+                                                <%= importOrder.quantity %>
+                                            </td>
+                                            <td class="align-middle text-center"><%= importOrder.totalPrice %></td>
+                                            <td class="align-middle text-center"><% for (let cost of importOrder.otherCost){ %><%= `${cost.costDescription}- ${cost.amount}`  %></br><% } %></td>
+                                            <td class="align-middle text-center">Sum to do
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                Cost per Unit todo
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <%= importOrder.importForm.name %>
+                                            </td>
+                            
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../partials/alert.ejs') %>
+
+            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
+        </div>
+        <!-- // END drawer-layout -->
+    </div>
+
+   <%- include('../partials/footer.ejs') %>

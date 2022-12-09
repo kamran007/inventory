@@ -12,7 +12,7 @@ const importOrderSchema=new Schema({
         ref: 'Product',
         required:true
     },
-    TotalPrice:Number,
+    totalPrice:Number,
     quantity:Number,
     otherCost:[
         {

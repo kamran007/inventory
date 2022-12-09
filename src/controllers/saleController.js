@@ -18,24 +18,12 @@ module.exports.getAllSale = async (req, res) => {
             model: User
         },{
             path: 'item.itemId',
-            select: 'productName',
+            select: 'productName price quantity total',
             model: Product
         }])
-        let summary = {}
-        summary=await Sale.aggregate([{
-            $group: {
-                _id:null,
-                total_payable:{ $sum: "$payable"},
-                total_discount:{ $sum: "$discount"},
-                total_paid:{ $sum: "$paid"},
-                total_due:{ $sum: "$due"},
-            }
-        }])
-        console.log(Object.values(summary)[0]);
         res.render('pages/sale',{
             title: "Sale",
             sales,
-            summary: Object.values(summary)[0],
             flashMessage:Flash.getMessage(req)
         })
     }

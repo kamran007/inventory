@@ -31,7 +31,7 @@ b<%- include('../partials/head.ejs') %>
                                 <select name="product" id="product" class="form-select">
                                     <option value="" selected> </option>
                                     <% for (let product of products){ %>
-                                    <option value="<%= product._id %>"> <%= product.name %> </option>
+                                    <option value="<%= product._id %>"> <%= product.productName %> </option>
                                     <% } %>
                                 </select>
                             </div>

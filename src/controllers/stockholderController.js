@@ -84,7 +84,7 @@ module.exports.postSingleStockholder=(req,res)=>{
         })
         stockholder.save()
         req.flash('success',`new ${type} created successfully`)
-        return res.redirect('/stockholder/insert')
+        return res.redirect('/stockholder')
     }
     catch(e){
         console.log(e)

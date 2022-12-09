@@ -1,0 +1,170 @@
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid ui-grid">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h3>Import Order Insert Form</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="/sale/insert" method="POST" id="saleForm">
+                                <div class="row my-3">
+                                    <div class="row col-9">
+                                        <label for="customer" class="col-3 col-form-label d-block text-start">Customer Name</label>
+                                        <div class="col-9">
+                                            <select name="customer" id="customer" class="form-select">
+                                                <option value="" selected> </option>
+                                                <% for (let customer of customers){ %>
+                                                <option value="<%= customer._id %>"> <%= customer.name %> </option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row col-3">
+                                        <label for="date" class="col-4 d-block text-end">Date </label>
+                                        <div class="col-8"><input type="date" name="date" id="date" class="form-control"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="row my-2">
+                                            <label for="p" class="col-4 col-form-label">Product</label>
+                                            <div class="col-8">
+                                                <select name="p" id="p" class="form-select">
+                                                    <option value="" selected></option>
+                                                    <% for (let product of products){ %>
+                                                        <option value="<%= product.price %>" data-id="<%= product._id %>" data-price="<%= product.price %>" > <%= product.productName %> </option>
+                                                    <% } %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="row my-2">
+                                            <label for="unit" class="col-4">Unit</label>
+                                            <div class="col-8">
+                                                <input type="number" name="unit" id="unit" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="row my-2">
+                                            <label for="price" class="col-4">Total Price</label>
+                                            <div class="col-8">
+                                                <input type="number" name="price" id="price" class="form-control"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <input type="hidden" name="id" id="id" class="form-control" >
+                                    <input type="hidden" name="pricePerUnit" id="pricePerUnit" class="form-control" >
+                                    <div class="col-2">
+                                        <div class="row my-2">
+                                            <div class="col"><button id="itemAdd" class="btn btn-primary"
+                                                form="form1">Add</button>
+                                            </div>
+                                            <div class="col"><button id="resetItem" form="form1"
+                                                    class="btn btn-warning">Reset</button>
+                                            </div>
+                                        </div>
+                                            
+                                    </div>
+                                </div>
+                                <div class="table-container">
+                                    <div class="card my-2">
+                                        <div class="card-header text-center fw-4 fs-4">Sale Item Table</div>
+                                        <div class="card-body scroll">
+                                            <table class="table" id="productTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Id</th>
+                                                        <th scope="col">Product Name</th>
+                                                        <th scope="col">Price/Unit</th>
+                                                        <th scope="col">Quantity</th>
+                                                        <th scope="col">Price</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-2">
+                                    <div class="col-9">
+                                        <label for="payable" class="d-block text-end fs-5 fw-5">Total</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="number" name="payable" id="payable" value="0" class="form-control"
+                                            readonly>
+                                    </div>
+                                </div>
+                                <div class="row my-2">
+                                    <div class="col-9"><label for="discount" class="d-block text-end">Discount</label></div>
+                                    <div class="col-3"><input type="number" name="discount" id="discount" value="0"
+                                            class="form-control"></div>
+                                </div>
+                                <div class="row my-2">
+                                    <div class="col-9"><label for="paid" class="d-block text-end">Paid</label></div>
+                                    <div class="col-3"><input type="number" name="paid" id="paid" value="0"
+                                            class="form-control"></div>
+                                </div>
+                                <div class="row my-2">
+                                    <div class="col-9"><label for="due" class="d-block text-end">Due</label></div>
+                                    <div class="col-3"><input type="number" name="due" id="due" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="invisible">
+                                    <input type="text" name="item[]" id="item" />
+                                    <input type="text" name="itemPrice[]" id="itemPrice" />
+                                    <input type="text" name="itemUnit[]" id="itemUnit"/>
+                                    <input type="text" name="itemTotal[]" id="itemTotal" />
+                                </div>
+                                
+                                <div class="row my-2">
+                                    <label for="paymentType" class="col-1 col-form-label">Payment Type</label>
+                                    <div class="col-2">
+                                        <select name="paymentType" id="paymentType" class="form-select">
+                                            <option value="Check" selected>Check</option>
+                                            <option value="Cash" >Cash</option>
+                                            <option value="Online Banking" >Online Banking</option>
+                                            <option value="Mobile Banking" >Mobile Banking</option>
+                                        </select>
+                                    </div>
+                                    <label for="paymentRef" class="col-1 col-form-label">payment Reference</label>
+                                    <div class="col-2">
+                                        <input type="text" name="paymentRef" id="paymentRef" class="form-control">
+                                    </div>
+                                    <label for="depositDate" class="col-1 col-form-label">payment Date</label>
+                                    <div class="col-2">
+                                        <input type="date" name="depositDate" id="depositDate" class="form-control">
+                                    </div>
+                                    <label for="comment" class="col-1 col-form-label">Remark</label>
+                                    <div class="col-2">
+                                        <input type="text" name="comment" id="comment" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row my-2">
+                                    <div class="col d-block text-end"><input type="button" id="resetSale" value="Reset" class="btn btn-danger">
+                                    </div>
+                                    <div class="col d-block text-end"><input type="submit" form="saleForm" value="Sale" class="btn btn-primary">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../partials/alert.ejs') %>
+
+            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
+        </div>
+        <!-- // END drawer-layout -->
+    </div>
+    <script src="/assets/js/sale.js"></script>
+   <%- include('../partials/footer.ejs') %>
