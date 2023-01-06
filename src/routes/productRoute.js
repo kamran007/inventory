@@ -4,7 +4,9 @@ const {
     postProductInsertForm,
     getAllProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getSetPriceForm,
+    postsetPriceForm
 }=require('./../controllers/productController')
 
 const productInsertValidator = require('./../validators/productValidations/productInsertValidator');
@@ -16,5 +18,7 @@ router.get('/insert',authenticatedUser ,getProductInsertForm)
 router.post('/insert', authenticatedUser,productInsertValidator,postProductInsertForm)
 router.post('/update',authenticatedUser,updateProduct)
 router.get('/delete/:id',authenticatedUser,deleteProduct)
+router.get('/setPrice',authenticatedUser,getSetPriceForm)
+router.post('/setPrice',authenticatedUser,postsetPriceForm)
 router.get('/',authenticatedUser,getAllProduct)
 module.exports=router

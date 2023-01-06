@@ -1,0 +1,216 @@
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid ui-grid">
+                    <div class="card text-uppercase">
+                        <div class="card-header text-center">
+                            <h3>Sale Summary</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row my-3">
+                                <div class="col">
+                                    <div class="row">
+                                        <label for="" class="col text-end">Total Payble :</label>
+                                        <div class="col">
+                                            &#2547; <%= sale.payable - sale.discount %> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="" class="col text-end">Paid Amount :</label>
+                                        <div class="col">
+                                            &#2547; <%= sale.paid %>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="" class="col text-end">Due Amount :</label>
+                                        <div class="col">
+                                            &#2547; <%= sale.due %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <label for="" class="col text-end">Date :</label>
+                                        <div class="col">
+                                            <%= new Date(sale.date).toLocaleString('en-US',{day:'2-digit',month:'long',year:'numeric'}) %>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <label for="" class="col text-end">Customer Name :</label>
+                                        <div class="col">
+                                            <%= sale.saleTo.name %> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="" class="col text-end">Address :</label>
+                                        <div class="col">
+                                            <%= sale.saleTo.address %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card my-2">
+                        <div class="card-header text-center text-uppercase">
+                            <h3>Order Detail</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="orderTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left" style="width: 100px;">Serial</th>
+                                            <th class="text-left" >Product Name</th>
+                                            <th class="text-right" style="width: 180px;">Quantity</th>
+                                            <th class="text-right" style="width: 180px;">Unit Price</th>
+                                            <th class="text-right" style="width: 180px;">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let i=1, sum=0; for (let product of sale.item){ %> 
+                                            <% sum+= Number(product.total) %> 
+                                        <tr>
+                                            <td class="text-left" style="width: 100px;"><%= i++ %> </td>
+                                            <td class="text-left" ><%= product.itemId.productName %></td>
+                                            <td class="text-right" style="width: 180px;"><%= product.quantity %></td>
+                                            <td class="text-right" style="width: 180px;">&#2547; <%= product.price %></td>
+                                            <td class="text-right" style="width: 180px;">&#2547; <%= product.total %></td>
+                                        </tr>
+                                        <% } %> 
+                                        <tr>
+                                            <td><%= i++ %> </td>
+                                            <td class="text-left">Shipping </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td  class="text-right"> &#2547; <%= sale.payable - sum %> </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-right text-uppercase">Discount</td>
+                                            <td class="text-right">- &#2547; <%= sale.discount %> </span> </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="4" class="text-left text-uppercase"><b><%=`IN WORD: TK ${word} ONLY` %></b> </td>
+                                            <td class="text-right text-uppercase">Sub Total: &#2547; <%= sale.payable - sale.discount %>  </td>
+                                        </tr>
+                                    </tfoot>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card my-2">
+                        <div class="card-header text-center text-uppercase">
+                            <h3>Payment Detail</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="paymentTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left" style="width: 100px;">Serial</th>
+                                            <th class="text-left" >Payment Type</th>
+                                            <th class="text-right" style="width: 180px;">Amount</th>
+                                            <th class="text-right" style="width: 250px;">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let j=1, asum=0; for (let payment of sale.payment){ %> 
+                                            <% asum+= Number(payment.individualPayment.amount) %> 
+                                        <tr>
+                                            <td class="text-left" style="width: 100px;"><%= j++ %> </td>
+                                            <td class="text-left" ><%= payment.individualPayment.paymentType %></td>
+                                            <td class="text-right" style="width: 180px;"><%= payment.individualPayment.amount %></td>
+                                            <td class="text-right" style="width: 180px;">&#2547; <%=new Date(payment.individualPayment.createdAt).toLocaleString('en-US',{day:'2-digit',month:'long',year:'numeric'}) %></td>
+                                        </tr>
+                                        <% } %> 
+                                        
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-right text-uppercase">Sub Total: &#2547; <%= asum %>  </td>
+                                            <td class="text-right"><% if(sale.due>0){%> <button class="btn btn-sm btn-primary" id="add">Add Payment</button> <% } %>  </td>
+                                        </tr>
+                                    </tfoot>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card my-2" id="paymentCard" style="display:none;">
+                        <div class="card-header text-center text-uppercase">
+                            <h3>New Payment Insert Form</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="/sale/payment/<%= sale._id %>" >
+                                <div class="row my-2">
+                                    <div class="col">
+                                        <label for="paymentType" class="col-form-label">Payment Type</label>
+                                        <select name="paymentType" id="paymentType" class="form-select">
+                                            <option value="Check">Check</option>
+                                            <option value="Cash" selected>Cash</option>
+                                            <option value="Online Banking" >Online Banking</option>
+                                            <option value="Mobile Banking" >Mobile Banking</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label for="amount" class="col col-form-label">Amount</label>
+                                        <input type="number" name="amount" id="amount" class="form-control col">
+                                    </div>
+                                    <div class="col">
+                                        <label for="paymentRef" class="col col-form-label">payment Reference</label>
+                                        <input type="text" name="paymentRef" id="paymentRef" class="form-control col">
+                                    </div>
+                                    <div class="col" id="optional" style="display: none;">
+                                        <label for="depositDate" class="col col-form-label">Deposite Date</label>
+                                        <input type="date" name="depositDate" id="depositDate" class="form-control col">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col"></div>
+                                    <div class="col text-right"><button class="btn btn-primary btn-md">Pay</button></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- <button class="btn btn-primary" onclick="window.print()">Print</button> -->
+            </div>
+            <%- include('../partials/alert.ejs') %>
+
+            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
+        </div>
+        <!-- // END drawer-layout -->
+    </div>
+    <%- include('../partials/tail.ejs') %>
+    <script>
+        let div_paymentCard = document.getElementById('paymentCard')
+        let div_optional = document.getElementById('optional')
+        let btn_add = document.getElementById('add');
+        let select_paymentType = document.getElementById('paymentType')
+        btn_add.addEventListener('click',(event)=>{
+            div_paymentCard.style.display ="block"
+        })
+
+        // payment Type selet handler
+        select_paymentType.addEventListener('change',(event)=>{
+            let value = select_paymentType.options[select_paymentType.selectedIndex].value
+            if(value === 'Check'){
+                div_optional.style.display ="block";
+            }
+            else{
+                div_optional.style.display ="none";
+            }
+        })
+    </script>
+   <%- include('../partials/footer.ejs') %>

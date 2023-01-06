@@ -2,7 +2,7 @@
 const {Schema,model}=require('mongoose')
 
 const importOrderSchema=new Schema({
-    importForm:{
+    importFrom:{
         type:Schema.Types.ObjectId,
         ref: 'Stockholder',
         required:true
@@ -20,6 +20,7 @@ const importOrderSchema=new Schema({
             amount: Number
         }
     ],
+    totalCost: Number,
     comment: String,
     date: Date
 },{

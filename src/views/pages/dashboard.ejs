@@ -1,43 +1,77 @@
-
-<%- include('./../partials/head.ejs') -%>
-<div class="main">
-    <div class="container-fluid">
-        <div class="card-deck">
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid">
+                    <div class="card-deck">
                         <div class="card p-2 pl-3 pr-3">
                             <div class="media align-items-center">
-                                <div class="doughnut-chart-wrapper mr-1"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                                <div class="doughnut-chart-wrapper mr-1">
                                     <div class="doughnut-chart-text">
                                         <div>
-                                            <h3 class="text-danger">12%</h3>
-                                            <small>TODAY</small>
+                                            <h3 class="text-danger"><%= Math.round((summary.totalPayable/summary.totalCost)*100) %>% </h3>
+                                            <small><%= month %> </small>
                                         </div>
                                     </div>
-                                    <canvas class="doughnut-chart chartjs-render-monitor" data-percent="12" width="100" height="100" style="display: block;"></canvas>
+                                    <canvas class="doughnut-chart" data-percent="<%= Math.round((summary.totalPayable/summary.totalCost)*100) %>" width="100" height="100"></canvas>
                                 </div>
                                 <div class="media-body">
-                                    <h3 class="mb-0">$1,020</h3>
+                                    <h3 class="mb-0">&#2547; <%= summary.totalPayable %></h3>
                                     <span>Total Sales</span>
                                 </div>
                             </div>
                         </div>
                         <div class="card p-2 pl-3 pr-3">
                             <div class="media align-items-center">
-                                <div class="doughnut-chart-wrapper mr-1"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                                <div class="doughnut-chart-wrapper mr-1">
                                     <div class="doughnut-chart-text">
                                         <div>
-                                            <h3 class="text-success">68%</h3>
-                                            <small>MONTH</small>
+                                            <h3 class="text-danger"><%= Math.floor((summary.totalPaid/summary.totalPayable)*100) %>%</h3>
+                                            <small><%= month %> </small>
                                         </div>
                                     </div>
-                                    <canvas class="doughnut-chart chartjs-render-monitor" data-percent="68" width="100" height="100" style="display: block;"></canvas>
+                                    <canvas class="doughnut-chart" data-percent="<%= (summary.totalPaid/summary.totalPayable)*100 %> " width="100" height="100"></canvas>
                                 </div>
                                 <div class="media-body">
-                                    <h3 class="mb-0">$6,670</h3>
-                                    <span>Sales for June</span>
+                                    <h3 class="mb-0">&#2547; <%= summary.totalPaid %></h3>
+                                    <span>Total Paid</span>
                                 </div>
                             </div>
                         </div>
                         <div class="card p-2 pl-3 pr-3">
+                            <div class="media align-items-center">
+                                <div class="doughnut-chart-wrapper mr-1">
+                                    <div class="doughnut-chart-text">
+                                        <div>
+                                            <h3 class="text-danger"><%= Math.floor((summary.totalDue/summary.totalPayable)*100) %>%</h3>
+                                            <small><%= month %> </small>
+                                        </div>
+                                    </div>
+                                    <canvas class="doughnut-chart" data-percent="<%= (summary.totalDue/summary.totalPayable)*100 %>" width="100" height="100"></canvas>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="mb-0">&#2547; <%= summary.totalDue %></h3>
+                                    <span>Total Due</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-2 pl-3 pr-3">
+                            <div class="media align-items-center">
+                                <div class="doughnut-chart-wrapper mr-1">
+                                    <div class="doughnut-chart-text">
+                                        <div>
+                                            <h3 class="text-success">12%</h3>
+                                            <small><%= day %></small>
+                                        </div>
+                                    </div>
+                                    <canvas class="doughnut-chart" data-percent="12" width="100" height="100"></canvas>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="mb-0">&#2547; <%= daySummary.totalPayable %></h3>
+                                    <span>Total Sales </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="card p-2 pl-3 pr-3">
 
                             <div class="media justify-items-center align-items-center h-md-100">
                                 <i class="material-icons md-48 text-link-color">account_circle</i>
@@ -58,16 +92,390 @@
                                 </div>
                             </div>
                             <div class="clearfix"></div>
+                        </div> -->
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card card-sales">
+                                <div class="card-header bg-faded">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-2">
+                                            <h4 class="card-title">Sales</h4>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <form class="form-inline float-right">
+                                                <div class="form-group mr-3">
+                                                    <label class="control-label mr-1">From:</label>
+                                                    <input type="text" class="datepicker form-control" value="10/24/2017">
+                                                </div>
+                                                <div class="form-group mb-0">
+                                                    <label class="control-label mr-1">To: </label>
+                                                    <input type="text" class="datepicker form-control" value="10/25/2017">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="clearfix"></div>
+                                    <div style="height: 250px; width: 100%;">
+                                        <canvas id="dashboard-chart"></canvas>
+                                    </div>
+                                </div>
+                                <!-- <div class="card-body">
+                                    <div class="clearfix"></div>
+                                    <div style="height: 250px; width: 100%;">
+                                        <canvas id="weekChart"></canvas>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                        History
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between pb-1">
+                                        <span>January</span>
+                                        <div>
+                                            <strong>$10,000</strong> <span>/ $20,000</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 52%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between pb-1">
+                                        <span>February</span>
+                                        <div>
+                                            <strong>$8,250</strong> <span>/ $5,230</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between pb-1">
+                                        <span>March</span>
+                                        <div>
+                                            <strong>$1,150</strong> <span>/ $8,120</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 22%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between pb-1">
+                                        <span>April</span>
+                                        <div>
+                                            <strong>$4,625</strong> <span>/ $11,450</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between pb-1">
+                                        <span>May</span>
+                                        <div>
+                                            <strong>$5,875</strong> <span>/ $12,600</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 45%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-        <div class="row">
-            <div class="col-md-12 fw-12 fs-3">Dashboard</div>
-            <%- include('./../partials/alert') -%>
+
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h4 class="card-title">Latest Orders</h4>
+                            <button class="btn btn-faded btn-sm dropdown-toggle dropdown-no-caret" type="button" id="ordersFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons align-bottom text-muted md-18">filter_list</i>
+                                <span>Filter</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="ordersFilter">
+                                <h6 class="dropdown-header">Sort By</h6>
+                                <a class="dropdown-item" href="#">#</a>
+                                <a class="dropdown-item" href="#">Date</a>
+                                <a class="dropdown-item" href="#">Status</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width:60px">#</th>
+                                        <th style="width:150px" class="text-uppercase">Date</th>
+                                        <th style="width:500px" class="text-uppercase">Detail</th>
+                                        <th class="text-uppercase">Client</th>
+                                        <th class="text-right text-uppercase" style="width:80px">Status</th>
+                                        <th class="text-center text-uppercase" style="width:80px">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%i=sales.length; for(let sale of sales){ %>
+                                    <tr>
+                                        <td class="align-middle"><a href="#" class="font-weight-normal"><%= i-- %></a></td>
+                                        <td class="text-muted align-middle"><%= new Date(sale.date).toLocaleString('en-Us',{year:'numeric',month:'long',day:'2-digit'}); %></td>
+                                        <td class="align-middle"><% if(sale.item) for (let product of sale.item){ %><%= `${product.itemId.productName}, ${product.quantity}${product.itemId.unitType} was sold ৳ ${product.price} per ${product.itemId.unitType} totalling ৳ ${product.total}` %></br><% } else '' %></td>
+                                        <td class="align-middle">
+                                            <a href="/account/<%= sale.saleTo._id %> ">
+                                                <i class="material-icons align-bottom">business</i> <span><%= sale.saleTo.name %></span>
+                                            </a>
+                                        </td>
+                                        <td class="text-right align-middle">
+                                            <i class="badge <%= sale.due === 0? 'badge-success': sale.paid === 0? 'badge-danger': 'badge-warning' %>"><%= sale.due === 0? 'PAID': sale.paid === 0? 'NOT PAID' : 'DUE' %></i>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <div class="d-flex">
+                                                <button class="btn btn-white btn-sm mr-1">
+                                                    <i class="material-icons md-14 align-middle">edit</i>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm">
+                                                    <i class="material-icons md-14 align-middle">delete</i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h4 class="card-title">
+                                            Payment Method
+                                        </h4>
+                                        <div class="badge badge-warning align-self-middle">+48,6%</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th style="width:60px">#</th>
+                                                    <th style="width:150px" class="text-uppercase">Date</th>
+                                                    <th style="width:400px" class="text-uppercase">Payment Type</th>
+                                                    <th class="text-uppercase">Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%i=payments.length; for(let payment of payments){ %>
+                                                <tr>
+                                                    <td class="align-middle"><a href="#" class="font-weight-normal"><%= i-- %></a></td>
+                                                    <td class="text-muted align-middle"><%= new Date(payment._id.createdAt).toLocaleString('en-Us',{year:'numeric',month:'long',day:'2-digit'}); %></td>
+                                                    <td class="align-middle"><%= payment._id.paymentType %> </td>
+                                                    <td class="align-middle">&#2547; <%= payment.amount %> </td>
+                                                </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- <div class="card-group">
+                                    <div class="card card-body text-center">
+                                        <h3 class="mb-0">419</h3>
+                                        <div>REGISTRATIONS</div>
+                                    </div>
+                                    <div class="card card-body text-center">
+                                        <h3 class="mb-0">$19,091</h3>
+                                        <div>SALES</div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h4 class="card-title">
+                                            Check List
+                                        </h4>
+                                        <div class="badge badge-warning align-self-middle">+48,6%</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th style="width:60px">#</th>
+                                                    <th style="width:150px" class="text-uppercase">Deposit Date</th>
+                                                    <th style="width:400px" class="text-uppercase">Check Info</th>
+                                                    <th class="text-uppercase">Check Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%i=checks.length; for(let check of checks){ %>
+                                                <tr>
+                                                    <td class="align-middle"><a href="#" class="font-weight-normal"><%= i-- %></a></td>
+                                                    <td class="text-muted align-middle"><%= new Date(check.depositDate).toLocaleString('en-Us',{year:'numeric',month:'long',day:'2-digit'}); %></td>
+                                                    <td class="align-middle"><%= check.checkInfo %> </td>
+                                                    <td class="align-middle"><%= new Date(check.createdAt).toLocaleString('en-Us',{year:'numeric',month:'long',day:'2-digit'}); %> </td>
+                                                </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- <div class="card-group">
+                                    <div class="card card-body text-center">
+                                        <h3 class="mb-0">419</h3>
+                                        <div>REGISTRATIONS</div>
+                                    </div>
+                                    <div class="card card-body text-center">
+                                        <h3 class="mb-0">$19,091</h3>
+                                        <div>SALES</div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h4 class="card-title">Recent Activity</h4>
+                                        <span class="text-muted">Updated 10 mins ago</span>
+                                    </div>
+                                    <a href="#" class="text-muted"><i class="material-icons align-middle md-18 " data-toggle="tooltip" data-placement="bottom" title="Refresh">sync</i></a>
+                                </div>
+
+                                <ul class="list-group list-group-flush">
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/andrew-robles-300868.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Andrew Robles</a>
+                                                    <span>changed the due date of task </span>
+                                                    <a href="#">#2156</a>
+                                                </div>
+                                                <small class="text-muted">2 mins ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-warning">update</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/james-garcia-76433.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Karen Smith</a>
+                                                    <span>completed task </span>
+                                                    <a href="#">#2158</a>
+                                                </div>
+                                                <small class="text-muted">35 mins ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-success">check_circle</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/lucas-sankey-378674.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Steven Short</a>
+                                                    <span>completed task </span>
+                                                    <a href="#">#3320</a>
+                                                </div>
+                                                <small class="text-muted">5 hrs ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-success">check_circle</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/kyle-broad-29486.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Tara Knows</a>
+                                                    <span>removed task </span>
+                                                    <a href="#">#1252</a>
+                                                </div>
+                                                <small class="text-muted">2 days ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-danger">remove_circle</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/alex-sheldon-271322.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">John Smith</a>
+                                                    <span>removed task </span>
+                                                    <a href="#">#1255</a>
+                                                </div>
+                                                <small class="text-muted">3 days ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-danger">remove_circle</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/andrew-robles-300868.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Andrew Robles</a>
+                                                    <span>changed the due date of task </span>
+                                                    <a href="#">#2156</a>
+                                                </div>
+                                                <small class="text-muted">2 mins ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-warning">update</i>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <div class="media align-items-center">
+                                            <img src="/assets/images/avatars/james-garcia-76433.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                            <div class="media-body lh-1">
+                                                <div>
+                                                    <a href="profile.html">Karen Smith</a>
+                                                    <span>completed task </span>
+                                                    <a href="#">#2158</a>
+                                                </div>
+                                                <small class="text-muted">35 mins ago</small>
+                                            </div>
+                                        </div>
+                                        <i class="material-icons text-success">check_circle</i>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+            </div>
+            <%- include('../partials/alert.ejs') %>
+
+            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
         </div>
+        <!-- // END drawer-layout -->
     </div>
-</div>
-<%- include('./../partials/tail.ejs') -%>
-  </body>
-</html>
-<%- include('./../partials/navigation.ejs') -%>
-<%- include('./../partials/sideNavigation.ejs') -%>
+    <%- include('../partials/tail.ejs') %> 
+   <%- include('../partials/footer.ejs') %>

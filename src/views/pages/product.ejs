@@ -1,52 +1,84 @@
-<%- include('./../partials/head.ejs') %>
-    <div class="main">
-        <div class="container">
-            <div class="card">
-                <div class="card-header text-center">
-                    <%= title %>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="productTable" class="table table-striped" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Product Name</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Unit Type</th>
-                                    <th scope="col">stock</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for (let product of products){ %>
-                                    <tr>
-                                        <td><%=product.productName %></td>
-                                        <td><%=product.price %></td>
-                                        <td><%= product.unitType %></td>
-                                        <td><%=product.stock %></td>
-                                        <td>
-                                            <button class="btn btn-md btn-warning edit-btn"
-                                                data-product="<%= product.productName %>"
-                                                data-price="<%=product.price %>"
-                                                data-unitType="<%=product.unitType %>"
-                                                data-stock="<%= product.stock %>"
-                                                data-id="<%=product._id %>" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
-                                                Detail
-                                            </button>
-                                            <% if (user.role=='admin' ){ %>
-                                                <a href="/product/delete/<%= product._id %>"
-                                                    class="btn btn-md btn-danger">
-                                                    Delete
-                                                </a>
-                                                <% } %>
-                                        </td>
-                                    </tr>
-                                    <% } %>
-                            </tbody>
-
-                        </table>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid">
+                    <div class="card-deck">
+                        <div class="card p-2 pl-3 pr-3">
+                            <div class="media align-items-center">
+                                <div class="media-body">
+                                    <h3 class="mb-0">&#2547; <span id="stockQuantity"></span></h3>
+                                    <span>Stock Quantity</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-2 pl-3 pr-3">
+                            <div class="media align-items-center">
+                                <div class="media-body">
+                                    <h3 class="mb-0">&#2547; <span id="stockPrice"></span></h3>
+                                    <span>Stock Value</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div id="stockQuantity"></div>
+                                    <div class="col" id="stockPrice"></div> -->
+                    <div class="card my-3">
+                        <div class="card-header">
+                            <h1 class="card-title">
+                                Product Table
+                            </h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="productTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">Serial No</th>
+                                            <th scope="col" class="text-center">Product Name</th>
+                                            <th scope="col" class="text-center">Price</th>
+                                            <th scope="col" class="text-center">Unit Type</th>
+                                            <th scope="col" class="text-center">Purchase Quantity</th>
+                                            <th scope="col" class="text-center">Sale Quantity</th>
+                                            <th scope="col" class="text-center">Stock Quantity</th>
+                                            <th scope="col" class="text-center">Stock Value</th>
+                                            <th scope="col" class="text-left">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let i=products.length; for (let product of products){ %>
+                                            <tr>
+                                                <td class="align-middle text-center"><%= i-- %></td>
+                                                <td class="align-middle text-center"><%= product.productName %></td>
+                                                <td class="align-middle text-center">&#2547; <%= product.price %></td>
+                                                <td class="align-middle text-center"><%= product.unitType %></td>
+                                                <td class="align-middle text-center"><%= product.buy %></td>
+                                                <td class="align-middle text-center"><%= product.sale %></td>
+                                                <td class="align-middle text-center"><%= product.stock %></td>
+                                                <td class="align-middle text-center">&#2547; <%= product.stock*product.price %></td>
+                                                <td class="align-middle text-right">
+                                                    <div class="d-flex">
+                                                        <button class="btn btn-sm btn-white edit-btn mr-1"
+                                                        data-product="<%= product.productName %>"
+                                                        data-price="<%=product.price %>"
+                                                        data-unitType="<%=product.unitType %>"
+                                                        data-stock="<%= product.stock %>"
+                                                        data-id="<%=product._id %>" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal">
+                                                        <i class="material-icons md-14 align-middle">edit</i>
+                                                    </button>
+                                                    <% if (user.role=='admin' ){ %>
+                                                        <a href="/product/delete/<%= product._id %>"
+                                                            class="btn btn-sm btn-danger">
+                                                            <i class="material-icons md-14 align-middle">delete</i>
+                                                        </a>
+                                                        <% } %>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                </table>
+                                <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-fullscreen-md-down" role="document">
                                 <div class="modal-content">
@@ -94,38 +126,61 @@
                                 </div>
                             </div>
                         </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+                </div>
+                <%- include('../partials/alert.ejs') %>
+                            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
         </div>
+        <!-- // END drawer-layout -->
     </div>
-
-    <%- include('./../partials/tail.ejs') %>
-        <script>
-            $(document).ready(function () {
-                $('#productTable').DataTable();
-            });
-            window.onload = () => {
-                let editBtn = document.getElementsByClassName('edit-btn')
-                let form = document.getElementById('my-form')
-                    ;[...editBtn].forEach(btn => {
-                        btn.addEventListener('click', (event) => {
-                            let {
-                                product,
-                                price,
-                                stock,
-                                unittype,
-                                id
-                            } = event.target.dataset;
-                            form[0].value = product
-                            form[1].value = price
-                            form[2].value = unittype
-                            form[3].value = stock
-                            form[4].value = id
-                        })
-                    })
+    <%- include('../partials/tail.ejs') %> 
+    <script>
+        $(document).ready(()=>{
+            $('#productTable').DataTable({
+                order: [[0,'desc']],
+                footerCallback: function(tfoot,data,start,end,display){
+                let api = this.api();
+                $('#stockQuantity').html(
+                    api.column(6,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b),0).toLocaleString()
+                );
+                $('#stockPrice').html(
+                    api.column(7,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0).toLocaleString()
+                );
             }
-        </script>
-        </body>
+            })
+        })
+        let editBtn = document.getElementsByClassName('edit-btn')
+        let form = document.getElementById('my-form')
+        ;[...editBtn].forEach(btn => {
+            btn.addEventListener('click', (event) => {
+                let $this = event.target;
+                console.log('clicked');
+                let {
+                    product,
+                    price,
+                    stock,
+                    unittype,
+                    id
+                } = event.target.dataset;
+                form[0].value = product
+                form[1].value = price
+                form[2].value = unittype
+                form[3].value = stock
+                form[4].value = id
+                //$this.closest('.modal').classList.remove('fade').classList.add('fadeIn');
+                let $modal = document.querySelector('#exampleModal');
+                // $modal.classList.remove('fade');
+                $modal.classList.add('fadeIn');
+                // $modal.fadeIn();
+                //$modal.toggleClass('fadeIn');
 
-        </html>
+
+            })
+        })
+    </script>
+    <%- include('../partials/footer.ejs') %>

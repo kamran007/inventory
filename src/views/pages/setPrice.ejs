@@ -1,0 +1,71 @@
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">
+                                Set Price Form
+                            </h1>
+                        </div>
+                        <div class="card-body">
+                            <form action="/product/setPrice" method="POST">
+                                <div class="mb-3">
+                                    <label for="product" class="form-label">Product</label>
+                                    <select name="product" class="form-control" id="product_s">
+                                        <% for (let product of products){ %>
+                                            <option value="<%= product._id %>" data-price="<%= product.price %>" data-cost="<%= product.costingPrice %>" data-stock="<%= product.stock %>"><%= product.productName %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="stock" class="form-label">Stock</label>
+                                    <input type="number" name="stock" id="stock"
+                                        class="form-control" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="costingPrice" class="form-label">Costing Price</label>
+                                    <input type="number" name="costingPrice" id="costingPrice"
+                                        class="form-control" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Running Price</label>
+                                    <input type="text" name="price" id="price"
+                                        class="form-control" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="amount" class="form-label">Price</label>
+                                    <input type="text" name="amount" id="amount"
+                                        class="form-control" placeholder="Enter Price" required>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <input type="submit" class="btn btn-primary" value="Set">
+                                </div>
+        
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../partials/alert.ejs') %>
+                        <!-- drawer -->
+        <%- include('../partials/sidebar.ejs') %> 
+
+    </div>
+    <!-- // END drawer-layout -->
+</div>
+<%- include('../partials/tail.ejs') %> 
+<script>
+    let select_product = document.getElementById('product_s')
+    let in_stock = document.getElementById('stock')
+    let in_costingPrice = document.getElementById('costingPrice')
+    let in_price = document.getElementById("price")
+    select_product.addEventListener('change',(e)=>{
+        let {stock,cost,price} = select_product.options[select_product.selectedIndex].dataset
+        in_stock.value=stock
+        in_costingPrice.value = cost
+        in_price.value = price
+    })
+    
+    
+</script>
+<%- include('../partials/footer.ejs') %>

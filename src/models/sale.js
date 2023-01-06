@@ -20,18 +20,25 @@ const saleSchema=new Schema({
         },
         price:Number,
         quantity:Number,
-        total:Number
+        total:Number,
+        profit: Number,
     }],
     shippingCost:{
         type:Number,
         required: false
     },
+    totalProfit: Number,
     payable: Number,
     discount:Number,
     paid: Number,
     due:Number,
     date: Date,
-    paymentType: String,
+    payment:[{
+        individualPayment:{
+            type: Schema.Types.ObjectId,
+            ref: 'Payment'
+        }
+    }],
     comment: String
 },{
     timestamps:true

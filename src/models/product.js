@@ -6,7 +6,11 @@ const productSchema = new Schema({
         required: true,
     },
     price:Number,
-    stock:{
+    costingPrice:{
+        type: Number,
+        default: 0
+    },
+    adjustStock:{
         type: Number,
         default: 0
     },

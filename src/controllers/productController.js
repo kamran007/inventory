@@ -2,7 +2,8 @@ const Flash=require('./../utilities/Flash')
 const Product=require('./../models/product')
 const {validationResult} = require('express-validator')
 const errorFormatter = require('./../utilities/validationErrorFormatter')
-
+const ImportOrder = require('../models/importOrder')
+const {getStock} = require('../businessLogics/StockCalculation')
 module.exports.getProductInsertForm=(req,res)=>{
     res.render('pages/productInsertForm',{
         title: "Product",
@@ -40,7 +41,7 @@ module.exports.postProductInsertForm=(req,res)=>{
 
 module.exports.getAllProduct= async (req,res)=>{
     try{
-        let products= await Product.find()
+        let products= await getStock()
         res.render('pages/product',{
             title: 'Product',
             products,
@@ -68,7 +69,7 @@ module.exports.updateProduct= async (req,res)=>{
                 $set:{
                     productName,
                     price,
-                    stock,
+                    adjustStock:stock,
                     unitType
                 }
             },{
@@ -81,6 +82,45 @@ module.exports.updateProduct= async (req,res)=>{
     }
     catch(e){
         console.log(e)
+    }
+}
+module.exports.getSetPriceForm = async(req,res)=>{
+    try {
+        // let importOrders = await ImportOrder.aggregate().project({
+        //     importForm:1,
+        //     product:1,
+        //     totalPrice:1,
+        //     quantity:1,
+        //     otherCost:1,
+        //     comment:1,
+        //     date:1
+        // }).addFields({totalCost:{"$sum": "$otherCost.amount"}})
+        // console.log(importOrders);
+        const products = await getStock();
+        return res.render('pages/setPrice',{
+            title: 'Set Price',
+            products,
+            flashMessage: Flash.getMessage(req)
+        })
+    } catch (e) {
+        console.log(e);
+    }
+}
+module.exports.postsetPriceForm = async (req,res)=>{
+    let {product,amount}= req.body;
+    try {
+        await Product.findOneAndUpdate({_id:product},{
+            $set:{
+                price:amount
+            }
+        },
+        {
+            new:true
+        })
+        req.flash('success',`${productName} is updated with new price`)
+        res.redirect('/product/setPrice')
+    } catch (e) {
+        console.log(e);
     }
 }
 

@@ -1,11 +1,16 @@
 const session = require('express-session')
 const User = require('../models/user')
+const Employee = require('../models/employee')
 
 module.exports.bindUserRequest=()=>{
     return async (req,res,next)=>{
         if(req.session.isLoggedIn){
             try{
-                let user= await User.findOne({_id:req.session.user._id})
+                let user= await User.findOne({_id:req.session.user._id}).populate([{
+                    path: 'profile',
+                    select: 'name designation profilePic',
+                    model: Employee
+                }])
                 req.user=user
             }
             catch(e){

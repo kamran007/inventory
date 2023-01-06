@@ -1,0 +1,57 @@
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">
+                               System User Table
+                            </h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="productTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">Serial No</th>
+                                            <th scope="col" class="text-center">Employee Name</th>
+                                            <th scope="col" class="text-center">Designation</th>
+                                            <th scope="col" class="text-center">Username</th>
+                                            <th scope="col" class="text-center">Role</th>
+                                            <th scope="col" class="text-center">Created At</th>
+                                            <th scope="col" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let i=users.length; for (let user of users){ %>
+                                            <tr>
+                                                <td class="align-middle text-center"><%= i-- %></td>
+                                                <td class="align-middle text-center"><%=user.profile? user.profile.name: ' ' %></td>
+                                                <td class="align-middle text-center"><%=user.profile? user.profile.designation : ' '%></td>
+                                                <td class="align-middle text-center"><%=user.username %></td>
+                                                <td class="align-middle text-center"><%=user.role %></td>
+                                                <td class="align-middle text-center"><%=new Date(user.createdAt).toLocaleString('en-Us',{year:'numeric',month:'long',day:'2-digit'}) %></td>
+                                                <td class="align-middle text-center">
+                                                    <a href="/auth/delete/<%= user._id %>"
+                                                        class="btn btn-md btn-danger">
+                                                        Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <%- include('../partials/alert.ejs') %>
+                            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
+        </div>
+        <!-- // END drawer-layout -->
+    </div>
+    <%- include('../partials/tail.ejs') %> 
+    <%- include('../partials/footer.ejs') %>

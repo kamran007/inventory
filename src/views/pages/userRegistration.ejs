@@ -1,21 +1,13 @@
-<html>
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link type="text/css" rel="stylesheet" href="/static/css/style.css"/>
-
-    <title><%= title %></title>
-  </head>
-  <body>
-    <div class="container-signup">
-        <div class="card">
-            <h3>Create New User</h3>
-            
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">
+                               User Registration Form
+                            </h1>
+                        </div>
             <div class="card-body">
                 <form method="POST" action="/auth/signup">
                     <div class="mb-3">
@@ -44,13 +36,22 @@
                     </div>
                     <div class="mb-3">
                         <label for="role" class="form-label">Role</label>
-                        <select id="role" name="role" class="form-control <%= errors.role? 'is-invalid': '' %>">
+                        <select id="role" name="role" class="select-2 <%= errors.role? 'is-invalid': '' %>">
                             <option value="operator">Operator</option>
                             <option value="admin">Admin</option>
                         </select>
                         <div class="invalid-feedback text-warning">
                             <%= errors.role %>
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="employee" class="form-label">Assign To</label>
+                        <select name="employee" id="employee" class="select-2">
+                            <option value="" selected>Select a employee </option>
+                            <% for (let employee of employees){ %>
+                            <option value="<%= employee._id %>" > <%= `${employee.name} (${employee.designation})` %> </option>
+                            <% } %>
+                        </select>
                     </div>
                     <div class="d-flex justify-content-end">
                         <input type="submit" class="btn btn-primary" value="Create">
@@ -60,7 +61,11 @@
             </div>
         </div>
     </div>
+    </div>
+                <!-- drawer -->
+<%- include('../partials/sidebar.ejs') %> 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-  </body>
-</html>
+</div>
+</div>
+<%- include('../partials/tail.ejs') %> 
+<%- include('../partials/footer.ejs') %>

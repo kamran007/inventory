@@ -1,0 +1,141 @@
+<div class="mdk-drawer js-mdk-drawer" id="default-drawer">
+    <div class="mdk-drawer__content">
+        <div class="mdk-drawer__inner" data-simplebar data-simplebar-force-enabled="true">
+
+            <nav class="drawer  drawer--dark">
+                <div class="drawer-spacer drawer-spacer-border">
+                    <div class="media align-items-center">
+                        <img src="/img/<%= user.profile? user.profile.profilePic : 'profile.jpg' %>" class="img-fluid rounded-circle mr-2" width="40" alt="<%= user.profile? user.profile.username : 'profile.jpg' %>">
+                        <div class="media-body" style="line-height: 1.2">
+                            <a href="profile.html"><strong><%= user.profile? user.profile.name : user.username %></strong></a>
+                            <div><%= user.profile? user.profile.designation : user.role %></div>
+                        </div>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle dropdown-clear-caret" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<i class="material-icons">more_vert</i>
+</a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="#" class="dropdown-item dropdown-item-action ">View Profile</a>
+                                <a href="#" class="dropdown-item dropdown-item-action ">Edit Account</a>
+                                <a href="/auth/logout" class="dropdown-item dropdown-item-action">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- HEADING -->
+                <div class="drawer-heading">
+                    Menu
+                </div>
+                <!-- MENU -->
+                <ul class="drawer-menu" id="mainMenu" data-children=".drawer-submenu">
+                    <li class="drawer-menu-item" data-parent="#mainMenu">
+                        <a href="/dashboard">
+                            <i class="material-icons">home</i>
+                            <span class="drawer-menu-text"> Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="drawer-menu-item drawer-submenu" data-parent="#mainMenu">
+                        <a href="#dashboard" data-toggle="collapse" data-parent="#mainMenu" data-target="#dashboard" aria-controls="dashboardMenu" aria-expanded="false" class="collapsed">
+                            <i class="material-icons">trending_up</i>
+                            <span class="drawer-menu-text"> Report</span>
+                        </a>
+                        <ul class="collapse " id="dashboard">
+                            <li class="drawer-menu-item "><a href="/dashboard/day">Daily Report</a></li>
+                            <li class="drawer-menu-item "><a href="/dashboard/month">Monthly Report</a></li>
+                            <li class="drawer-menu-item "><a href="/account">Customer Report</a></li>
+                        </ul>
+                    </li>
+                    <li class="drawer-menu-item drawer-submenu">
+                        <a data-toggle="collapse" data-parent="#mainMenu" href="#" data-target="#pageMenu3" aria-controls="pageMenu" aria-expanded="false" class="collapsed">
+                            <i class="material-icons">insert_chart</i>
+                            <span class="drawer-menu-text">Account List</span>
+                        </a>
+                        <ul class="collapse " id="pageMenu3">
+                            <li class="drawer-menu-item "><a href="/account">Customer Account List</a></li>
+                        </ul>
+                    </li>
+                    <li class="drawer-menu-item drawer-submenu">
+                        <a data-toggle="collapse" data-parent="#mainMenu" href="#appsMenu" data-target="#appsMenu" aria-controls="appsMenu" aria-expanded="false" class="collapsed">
+                            <i class="material-icons">add_shopping_cart</i>
+                            <span class="drawer-menu-text">Sales</span>
+                        </a>
+                        <ul class="collapse " id="appsMenu">
+                            <li class="drawer-menu-item "><a href="/sale">Sale List</a></li>
+                            <li class="drawer-menu-item "><a href="/sale/insert">Add New</a></li>
+                            <!-- <li class="drawer-menu-item "><a href="#">Update Sale</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="drawer-menu-item drawer-submenu">
+                        <a data-toggle="collapse" data-parent="#mainMenu" href="#" data-target="#dashboardMenu1" aria-controls="dashboardMenu" aria-expanded="false" class="collapsed">
+<i class="material-icons">child_friendly</i>
+<span class="drawer-menu-text"> Purchases</span>
+</a>
+                        <ul class="collapse" id="dashboardMenu1">
+                            <li class="drawer-menu-item"><a href="/importorder">Purchase List</a></li>
+                            <li class="drawer-menu-item "><a href="/importorder/insert">Add New</a></li>
+                        </ul>
+                    </li>
+                    <li class="drawer-menu-item drawer-submenu">
+                        <a data-toggle="collapse" data-parent="#mainMenu" href="#" data-target="#uiMenu" aria-controls="uiMenu" aria-expanded="false" class="collapsed">
+<i class="material-icons">people_outline</i>
+<span class="drawer-menu-text">Customers</span>
+</a>
+                        <ul class="collapse " id="uiMenu">
+                            <li class="drawer-menu-item "><a href="/stockholder/customer">Customer List</a></li>
+                            <li class="drawer-menu-item "><a href="/stockholder/insertCustomer">Add Customer</a></li>
+                            <li class="drawer-menu-item "><a href="/stockholder/exporter">Supplier List</a></li>
+                            <li class="drawer-menu-item "><a href="/stockholder/insertExporter">Add Supplier</a></li>
+                        </ul>
+                    </li>
+                    <li class="drawer-menu-item drawer-submenu">
+                        <a data-toggle="collapse" data-parent="#mainMenu" href="#" data-target="#pageMenu" aria-controls="pageMenu" aria-expanded="false" class="collapsed">
+                            <i class="material-icons">view_quilt</i>
+                            <span class="drawer-menu-text">Products</span>
+                        </a>
+                        <ul class="collapse " id="pageMenu">
+                            <li class="drawer-menu-item "><a href="/product">Inventory</a></li>
+                            <li class="drawer-menu-item "><a href="#">Add Inventory</a></li>
+                            <li class="drawer-menu-item "><a href="/product/insert">Add Product</a></li>
+                            <li class="drawer-menu-item "><a href="/product/setPrice">Set Price</a></li>
+                        </ul>
+                    </li>
+                    <li class="drawer-menu-item drawer-submenu">
+                        <a data-toggle="collapse" data-parent="#mainMenu" href="#" data-target="#pageMenu1" aria-controls="pageMenu" aria-expanded="false" class="collapsed">
+                            <i class="material-icons">library_books</i>
+                            <span class="drawer-menu-text">Costs</span>
+                        </a>
+                        <ul class="collapse " id="pageMenu1">
+                            <li class="drawer-menu-item "><a href="/cost/insert">Cost</a></li>
+                        </ul>
+                    </li>
+                    <li class="drawer-menu-item drawer-submenu">
+                        <a data-toggle="collapse" data-parent="#mainMenu" href="#" data-target="#pageMenu2" aria-controls="pageMenu" aria-expanded="false" class="collapsed">
+                            <i class="material-icons">supervisor_account</i>
+                            <span class="drawer-menu-text">Employees</span>
+                        </a>
+                        <ul class="collapse " id="pageMenu2">
+                            <li class="drawer-menu-item "><a href="/employee">Employee List</a></li>
+                            <li class="drawer-menu-item "><a href="/employee/insert">Add Employee</a></li>
+                        </ul>
+                    </li>
+                    <li class="drawer-menu-item drawer-submenu">
+                        <a data-toggle="collapse" data-parent="#mainMenu" href="#" data-target="#pageMenu4" aria-controls="pageMenu" aria-expanded="false" class="collapsed">
+                            <i class="material-icons">settings</i>
+                            <span class="drawer-menu-text">Account Setting</span>
+                        </a>
+                        <ul class="collapse " id="pageMenu4">
+                            <li class="drawer-menu-item "><a href="/auth/signup">Add New User</a></li>
+                            <li class="drawer-menu-item "><a href="/auth/user">User List</a></li>
+                            <li class="drawer-menu-item "><a href="/auth/change">Change Password</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- HEADING -->
+                <!-- <div class="drawer-heading">
+                    Activity
+                </div> -->
+            </nav>
+
+        </div>
+    </div>
+</div>

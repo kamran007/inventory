@@ -1,0 +1,103 @@
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">
+                                Cost Form
+                            </h1>
+                        </div>
+                        <div class="card-body">
+                            <form action="/cost/insert" method="POST">
+                                <div class="mb-3">
+                                    <label for="costDescription" class="form-label">Cost Description</label>
+                                    <input type="text" name="costDescription" id="costDescription"
+                                        class="form-control <%= errors.costDescription? 'is-invalid': '' %>" placeholder="Enter Cost Description">
+                                    <div class="invalid-feedback text-warning">
+                                        <%= errors.costDescription %>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="amount" class="form-label">Amount</label>
+                                    <input type="text" name="amount" id="amount"
+                                        class="form-control <%= errors.amount? 'is-invalid': '' %>" placeholder="Enter amount">
+                                    <div class="invalid-feedback text-warning">
+                                        <%= errors.amount %>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="date" class="form-label">Date</label>
+                                    <input type="date" name="date" id="date"
+                                        class="form-control" />
+                            
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <input type="submit" class="btn btn-primary" value="Insert">
+                                </div>
+        
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card my-2">
+                        <div class="card-header">
+                            <h1 class="card-title">
+                                Cost Records
+                            </h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="costtable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-left">Serial</th>
+                                            <th scope="col" class="text-left">Cost Description</th>
+                                            <th scope="col" class="text-left">Amount</th>
+                                            <th scope="col" class="text-left">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let i=costs.length; for (let cost of costs) { %>
+                                            <tr>
+                                                <td><%= i-- %></td>
+                                                <td><%= cost.costDescription %></td>
+                                                <td><%= cost.amount %></td>
+                                                <td><%= new Date(cost.date).toLocaleString('en-Us',{year:'numeric',month:'long',day:'2-digit'}) %></td>
+                                            </tr>
+                                            <% }%>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="align-center text-left"></td>
+                                            <td class="align-center text-left"></td>
+                                            <td class="align-center text-left"></td>
+                                            <td class="align-center text-left"></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../partials/alert.ejs') %>
+                        <!-- drawer -->
+        <%- include('../partials/sidebar.ejs') %> 
+
+    </div>
+    <!-- // END drawer-layout -->
+</div>
+<%- include('../partials/tail.ejs') %>
+<script>
+    $(document).ready(()=>{
+        $('#costtable').DataTable({
+            order: [[0,'desc']],
+            footerCallback: function(tfoot,data,start,end,display){
+                let api = this.api();
+                $( api.column(2).footer() ).html(
+                        api.column(2,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b),0)
+                    );
+            }
+        })
+    })
+</script>
+<%- include('../partials/footer.ejs') %>

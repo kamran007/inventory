@@ -1,9 +1,14 @@
-<%- include('./../partials/head.ejs') -%>
-    <div class="main">
-        <div class="container">
-            <div class="card">
-                <div class="card-header text-center"><%= title %> Insert Form</div>
-                <div class="card-body">
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">
+                                Product Table
+                            </h1>
+                        </div>
+                        <div class="card-body">
                     <form action="/product/insert" method="POST">
                         <div class="mb-3">
                             <label for="productName" class="form-label">Product Name</label>
@@ -33,10 +38,13 @@
                     </form>
                     <%- include('./../partials/alert') -%>
                 </div>
-            </div>
+                    </div>
+                </div>
+                </div>
+                            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
         </div>
     </div>
-    <%- include('./../partials/tail.ejs') -%>
-        </body>
-
-        </html>
+    <%- include('../partials/tail.ejs') %> 
+    <%- include('../partials/footer.ejs') %>

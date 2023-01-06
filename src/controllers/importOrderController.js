@@ -1,21 +1,48 @@
 const Stockholder = require('../models/stockholder')
 const Product = require('../models/product')
 const ImportOrder = require('../models/importOrder');
+const {getStockById} = require('../businessLogics/StockCalculation')
 const Flash = require('../utilities/Flash')
 
 module.exports.getAllImportOrder = async (req,res) =>{
     try{
-        let importOrders = await ImportOrder.find().populate([
-            {
-                path: 'importForm',
-                select: 'name',
-                model: Stockholder
-            },{
-                path: 'product',
-                select: 'productName',
-                model: 'Product'
-            }
-        ])
+        // let importOrders = await ImportOrder.aggregate().project({
+        //     importForm:1,
+        //     product:1,
+        //     totalPrice:1,
+        //     quantity:1,
+        //     otherCost:1,
+        //     comment:1,
+        //     date:1
+        // }).addFields({totalCost:{"$sum": "$otherCost.amount"}})
+        // .lookup(
+        //     {
+        //         from: "stockholders",
+        //         localField: "importForm",
+        //         foreignField:"_id",
+        //         as: "import"
+        //     }
+        // )
+        // .lookup(
+        //     {
+        //         from: "products",
+        //         localField: "product",
+        //         foreignField:"_id",
+        //         as: "item"
+        //     }
+        // ).sort({'date':-1})
+
+        let importOrders = await ImportOrder.find().populate([{
+            path: 'importFrom',
+            select: 'name',
+            model: 'Stockholder'
+        },
+        {
+            path: 'product',
+            select: '_id productName price',
+            model: 'Product'
+        }
+        ]).sort([['date',-1]])
         res.render('pages/importOrder',{
             title: "Import Order List",
             importOrders,
@@ -44,8 +71,12 @@ module.exports.getImportOrderForm = async(req,res)=>{
 }
 
 module.exports.postImportOrderForm = async(req,res) =>{
-    const {c_d,c_a,exporter,date,product,quantity,totalPrice}= req.body;
-    console.log(exporter);
+    let {c_d,c_a,exporter,date,product,quantity,totalPrice,totalCost}= req.body;
+    let day = new Date(date)
+    let today = new Date()
+    let d= day.getFullYear()+ '-'+ (day.getMonth()+1) +'-'+day.getDate();
+    let time= today.getHours()+':'+ today.getMinutes()+':'+ today.getSeconds();
+    date = new Date(d+ ' '+ time);
 
     try {
         let otherCost=[];
@@ -57,17 +88,21 @@ module.exports.postImportOrderForm = async(req,res) =>{
             obj['costDescription']= d[i]
             obj['amount']= Number(a[i])
             otherCost.push(obj)
-            console.log(obj);
         }
+        let targetProduct = await getStockById(product)
+        let stockValue = targetProduct.stock * targetProduct.costingPrice;
+        let costingPrice = ((parseFloat(totalCost)+ parseFloat(stockValue))/(parseFloat(quantity)+parseFloat(targetProduct.stock))).toFixed(3)
         const importOrder = new ImportOrder({ 
-            importForm: exporter,
+            importFrom: exporter,
             product,
             totalPrice,
             quantity,
             otherCost,
+            totalCost,
             date
         })
         await importOrder.save();
+        await Product.findOneAndUpdate({_id:product},{$set:{costingPrice:costingPrice}})
         req.flash('success','New Import Order Added')
         res.redirect('/importOrder/insert')
     } catch (error) {

@@ -4,6 +4,7 @@
 let div_date=document.getElementById('date')
 let select_product=document.getElementById('p')
 let select_customer=document.getElementById('customer')
+let select_paymentType = document.getElementById('paymentType');
 
 let in_id = document.getElementById('id')
 let in_pricePerUnit=document.getElementById('pricePerUnit')
@@ -14,6 +15,8 @@ let in_payable=document.getElementById('payable')
 let in_discount=document.getElementById('discount')
 let in_paid=document.getElementById('paid')
 let in_due=document.getElementById('due')
+let in_shippingCost = document.getElementById('shippingCost')
+let div_optional = document.getElementById('optional');
 
 let in_item=document.getElementById('item')
 let in_itemPrice=document.getElementById('itemPrice')
@@ -27,22 +30,26 @@ let btn_resetSale=document.getElementById('resetSale')
 
 
 
-//Current Date set
-div_date.innerHTML = new Date().toLocaleString()
 
 //Auto total price set
-in_unit.addEventListener('mouseout',(event)=>{
+in_unit.addEventListener('keyup',(event)=>{
     total=calcIndivisualProductTotal()
     in_price.value=total
 })
 
 // Final due Calculation
-in_discount.addEventListener('mouseout',(event)=>{
+in_discount.addEventListener('keyup',(event)=>{
     setFinalValue()
 })
 
-in_paid.addEventListener('mouseout',(event)=>{
+in_paid.addEventListener('keyup',(event)=>{
     setFinalValue()
+})
+
+//shipment Cost add Effect
+in_shippingCost.addEventListener('keyup',(event)=>{
+    let payable=parseFloat(sumTableData(3)) + parseFloat(in_shippingCost.value);
+    in_payable.value=payable.toFixed(2)
 })
 
 // Add button event listener
@@ -64,8 +71,8 @@ btn_add.addEventListener('click',(event)=>{
         selectedRow=null
     }
     resetProductForm()
-    let payable=sumTableData(4)
-    in_payable.value=payable
+    let payable=sumTableData(4) + parseFloat(in_shippingCost.value);
+    in_payable.value=payable.toFixed(2)
     
 })
 
@@ -84,7 +91,16 @@ select_product.addEventListener('change',(event)=>{
     in_pricePerUnit.value=price
     in_id.value= id
 })
-
+// payment Type selet handler
+select_paymentType.addEventListener('change',(event)=>{
+    let value = select_paymentType.options[select_paymentType.selectedIndex].value
+    if(value === 'Check'){
+        div_optional.style.visibility ="visible";
+    }
+    else{
+        div_optional.style.visibility ="hidden";
+    }
+})
 function readProductData(){
     let data={}
 

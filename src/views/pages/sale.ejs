@@ -1,103 +1,116 @@
-<%- include('./../partials/head.ejs') %>
-    <div class="main">
-        <div class="container">
-            <div class="card">
-                <div class="card-header text-center">
-                    <%= title %>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="productTable" class="table table-striprd" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Customer Name</th>
-                                    <th scope="col">Sale By</th>
-                                    <th scope="col">Item | p/U | Unit | Total</th>
-                                    <th scope="col">Total Payable</th>
-                                    <th scope="col">Total Discount</th>
-                                    <th scope="col">Total Paid</th>
-                                    <th scope="col">Due</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for (let sale of sales){ %>
-                                    <tr>
-                                        <td>
-                                            <%= sale.createdAt.toLocaleString() %>
-                                        </td>
-                                        <td>
-                                            <%=sale.saleTo.name %>
-                                        </td>
-                                        <td>
-                                            <%=sale.saleBy.username %>
-                                        </td>
-                                        <td>
-                                            <table class="table table-bordered">
-                                                <!-- <thead>
-                                                    <tr>
-                                                        <th scope="col">Product</th>
-                                                        <th scope="col">Price/Unit</th>
-                                                        <th scope="col">Quantity</th>
-                                                        <th scope="col">Total</th>
-                                                    </tr>
-                                                </thead> -->
-                                                <tbody>
-                                                    <% for (let item of sale.item){ %>
-                                                        <tr>
-                                                        <td><%= item.itemId.productName %></td>
-                                                        <td><%= item.price %></td>
-                                                        <td><%= item.quantity %></td>
-                                                        <td><%= item.total %></td>
-                                                        </tr>
-                                                    <% } %>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <%=sale.payable %>
-                                        </td>
-                                        <td>
-                                            <%=sale.discount %>
-                                        </td>
-                                        <td>
-                                            <%=sale.paid %>
-                                        </td>
-                                        <td>
-                                            <%=sale.due %>
-                                        </td>
-                                        <td>
-                                            <a href="/sale/update/<%= sale._id %>" class="btn btn-primary">Edit</a>
-                                            <a href="/sale/delete/<%= sale._id %>" class="btn btn-danger">Delete</a>
-                                        </td>
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid">
+                    <h2>Sale List</h2>
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                               Sale Order
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="saleTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">#<% let i=sales.length %></th>
+                                            <th scope="col" class="text-center">Sale To</th>
+                                            <th scope="col" class="text-center">Product (Name - quantity - price/unit - total)</th>
+                                            <th scope="col" class="text-center">Sub Total</th>
+                                            <th scope="col" class="text-center">discount</th>
+                                            <th scope="col" class="text-center">payable</th>
+                                            <th scope="col" class="text-center">Paid</th>
+                                            <th scope="col" class="text-center">Due</th>
+                                            <th scope="col" class="text-center">Status</th>
+                                            <th scope="col" class="text-center">Date</th>
+                                            <th scope="col" class="text-center">Sale By</th>
+                                            <th scope="col" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%  for(let sale of sales){ %>
+                                        <tr data-toggle="tooltip" data-html="true" data-placement="bottom" 
+                                        title="<% if(sale.item) for (let product of sale.item){ %><%= `${product.itemId.productName}: ${product.quantity}${product.itemId.unitType} - ৳ ${product.total}   ` %><% } else '' %>">
+                                            <th class="align-middle text-center" scope="row"><%= i-- %></th>
+                                            <td class="align-middle text-center"><a href="/account/<%= sale.saleTo._id %> "><%= sale.saleTo.name %></a></td>
+                                            <td class="align-middle text-center"><% if(sale.item) for (let product of sale.item){ %><%= `${product.itemId.productName} - ${product.quantity} - ৳ ${product.price} - ৳ ${product.total}` %></br><% } else '' %></td>
+                                            <td class="align-middle text-center">&#2547; <%= sale.payable %></td>
+                                            <td class="align-middle text-center">&#2547; <%= sale.discount %></td>
+                                            <td class="align-middle text-center">&#2547; <%= sale.payable - sale.discount %></td>
+                                            <td class="align-middle text-center">&#2547; <%= sale.paid %></td>
+                                            <td class="align-middle text-center">&#2547; <%= sale.due %></td>
+                                            <td class="align-middle text-center">
+                                                <i class="badge <%= sale.due === 0? 'badge-success': sale.paid === 0? 'badge-danger': 'badge-warning' %>"><%= sale.due === 0? 'PAID': sale.paid === 0? 'NOT PAID' : 'DUE' %></i>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <%= new Date(sale.date).toLocaleString('en-Us',{year:'numeric',month:'long',day:'2-digit'}); %>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <%= sale.saleBy.username %>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-primary" href="sale/<%=sale._id %> ">Invoice</a>
+                                            </td>
+                            
+                                        </tr>
                                         <% } %>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th colspan="4"></th>
-                                    <th><%= summary? summary.total_payable : "0" %></th>
-                                    <th><%= summary? summary.total_discount : "0" %></th>
-                                    <th><%= summary? summary.total_paid: "0" %></th>
-                                    <th><%= summary? summary.total_due : "0" %></th>
-                                    <th></th>
-                                </tr>
-                            </tfoot>
-
-                        </table>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <%- include('./../partials/alert') -%>
                 </div>
             </div>
+            <%- include('../partials/alert.ejs') %>
+
+            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
         </div>
+        <!-- // END drawer-layout -->
     </div>
-
-    <%- include('./../partials/tail.ejs') %>
-        <script>
-            $(document).ready(function () {
-                $('#productTable').DataTable();
-            });
-        </script>
-        </body>
-
-        </html>
+<%- include('../partials/tail.ejs') %> 
+<script>
+    $(document).ready(()=>{
+        $('#saleTable').DataTable({
+            order: [[0,'desc']],
+            footerCallback: function (tfoot,data,start,end,display){
+                let api = this.api();
+                $( api.column(3).footer() ).html(
+                    api.column(3,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0)
+                );
+                $( api.column(4).footer() ).html(
+                    api.column(4,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0)
+                );
+                $( api.column(5).footer() ).html(
+                    api.column(5,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0)
+                );
+                $( api.column(6).footer() ).html(
+                    api.column(6,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0)
+                );
+                $( api.column(7).footer() ).html(
+                    api.column(7,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0)
+                );
+            }
+        });
+    })
+</script>
+   <%- include('../partials/footer.ejs') %>

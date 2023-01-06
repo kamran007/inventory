@@ -1,7 +1,7 @@
 <div class="position-absolute" style="left: 15%;bottom: 80%;width: 70%;">
     <div class="position-relative">
         <% if(flashMessage.success){ %>
-            <div class="text-center alert alert-primary alert-dismissible fade show" role="alert">
+            <div class="text-center alert alert-success alert-dismissible show" role="alert">
                 <%= flashMessage.success %>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true"></span>
@@ -9,7 +9,7 @@
             </div>
         <% } %>
         <% if(flashMessage.fail){ %>
-            <div class="text-center alert alert-danger alert-dismissible fade show my-3" role="alert">
+            <div class="text-center alert alert-danger alert-dismissible show my-3" role="alert">
                 <%= flashMessage.fail %>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true"></span>

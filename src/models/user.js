@@ -17,6 +17,11 @@ const userSchema=new Schema({
         required:true,
         enum: ['admin','operator'],
         default: 'operator'
+    },
+    profile:{
+        type: Schema.Types.ObjectId,
+        ref: 'Employee',
+        required: false
     }
 },{
     timestamps:true

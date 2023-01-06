@@ -7,7 +7,9 @@ const {
     postSaleInsertForm,
     getUpdateSaleForm,
     postUpdateForm,
-    deleteSale
+    deleteSale,
+    getIndivisualSale,
+    postAddPament
     
 }=require('./../controllers/saleController')
 
@@ -17,5 +19,7 @@ router.post('/insert',authenticatedUser,postSaleInsertForm)
 router.post('/update',authenticatedUser,postUpdateForm)
 router.get('/update/:id',authenticatedUser,getUpdateSaleForm)
 router.get('/delete/:id',authenticatedUser,deleteSale)
+router.post('/payment/:id',authenticatedUser,postAddPament)
+router.get('/:id',authenticatedUser,getIndivisualSale)
 
 module.exports=router

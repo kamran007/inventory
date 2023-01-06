@@ -1,0 +1,113 @@
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">
+                                Account Table
+                            </h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="accountTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-left">#</th>
+                                            <th scope="col" class="text-left">Account Holder Name</th>
+                                            <th scope="col" class="text-left"> Address</th>
+                                            <th scope="col" class="text-left"> Phone</th>
+                                            <th scope="col" class="text-left">Total</th>
+                                            <th scope="col" class="text-left"> Total Discount</th>
+                                            <th scope="col" class="text-left"> Total Payable</th>
+                                            <th scope="col" class="text-left"> Total Paid</th>
+                                            <th scope="col" class="text-left">Total Due</th>
+                                            <th scope="col" class="text-center">Status</th>       
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let i= accountDetails.length; for (let accountDetail of accountDetails){ %>
+                                            <tr>
+                                                <td><%= i-- %></td>
+                                                <td>
+                                                    <%=accountDetail.customer[0].name %>
+                                                </td>
+                                                <td>
+                                                    <%=accountDetail.customer[0].address %>
+                                                </td>
+                                                <td>
+                                                    <%=accountDetail.customer[0].phone %>
+                                                </td>
+                                                <td>
+                                                    &#2547; <%=accountDetail.totalPayable %>
+                                                </td>
+                                                <td>
+                                                    &#2547; <%=accountDetail.totalDiscount %>
+                                                </td>
+                                                <td>
+                                                    &#2547; <%=accountDetail.totalPayable - accountDetail.totalDiscount %>
+                                                </td>
+                                                <td>
+                                                    &#2547; <%= accountDetail.totalPaid %>
+                                                </td>
+                                                <td>  
+                                                    &#2547; <%= accountDetail.totalDue  %>
+                                                </td>
+                                                <td class="align-middle text-center"><i class="badge <%= accountDetail.totalDue === 0? 'badge-success': accountDetail.totalPaid === 0? 'badge-danger': 'badge-warning' %>"><%= accountDetail.totalDue === 0? 'PAID': accountDetail.totalPaid === 0? 'NOT PAID': 'DUE' %></i></td>
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <%- include('../partials/alert.ejs') %>
+                            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
+        </div>
+        <!-- // END drawer-layout -->
+    </div>
+    <%- include('../partials/tail.ejs') %>
+    <script>
+        $(document).ready(()=>{
+            $('#accountTable').DataTable({
+                order: [[0,'desc']],
+                footerCallback: function (tfoot,data,start,end,display){
+                let api = this.api();
+                $( api.column(8).footer() ).html(
+                    api.column(8,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0)
+                );
+                $( api.column(4).footer() ).html(
+                    api.column(4,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0)
+                );
+                $( api.column(5).footer() ).html(
+                    api.column(5,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0)
+                );
+                $( api.column(6).footer() ).html(
+                    api.column(6,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0)
+                );
+                $( api.column(7).footer() ).html(
+                    api.column(7,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0)
+                );
+            }
+            });
+        })
+    </script> 
+    <%- include('../partials/footer.ejs') %>

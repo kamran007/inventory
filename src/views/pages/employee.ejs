@@ -1,0 +1,89 @@
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid">
+                    <h2>Import Order List</h2>
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                               Employee List
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="employeeTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">#</th>
+                                            <th scope="col" class="text-center">Profile Picture</th>
+                                            <th scope="col" class="text-center">Name</th>
+                                            <th scope="col" class="text-center">Designation</th>
+                                            <th scope="col" class="text-center">Address</th>
+                                            <th scope="col" class="text-center">Salary</th>
+                                            <th scope="col" class="text-center">Status</th>
+                                            <th scope="col" class="text-center">Added Date</th>
+                                            <th scope="col" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let i = employees.length;  for(let employee of employees){ %>
+                                        <tr>
+                                            <th class="align-middle text-center" scope="row"><%= i-- %></th>
+                                            <td class="align-middle text-center"><img src="/img/<%= employee.profilePic %>" width="100px" alt="<%= employee.name  %> "/></td>
+                                            <td class="align-middle text-center"><%= employee.name %></td>
+                                            <td class="align-middle text-center"><%= employee.designation %></td>
+                                            <td class="align-middle text-center"><%= employee.address %></td>
+                                            <td class="align-middle text-center"><%= employee.salary %></td>
+                                            <td class="align-middle text-center"><i class="badge <%= employee.status? 'badge-success': 'badge-danger' %>"><%= employee.status? 'ACTIVE': 'NOT ACTIVE' %></i></td>
+                                            <td class="align-middle text-center"><%= new Date(employee.createdAt).toLocaleString('en-Us',{year:'numeric',month:'long',day:'2-digit'}) %></td>
+                                            <td class="align-middle text-center">
+                                                <a href="/employee/delete/<%= employee._id %>"
+                                                    class="btn btn-md btn-danger">
+                                                    <i class="material-icons md-14 align-middle">delete</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                            <td class="align-middle text-center"></td>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../partials/alert.ejs') %>
+
+            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
+        </div>
+        <!-- // END drawer-layout -->
+    </div>
+<%- include('../partials/tail.ejs') %> 
+<script>
+    $(document).ready(()=>{
+        $('#employeeTable').DataTable({
+            order: [[0,'desc']],
+            footerCallback: function (tfoot,data,start,end,display){
+                let api = this.api();
+                $( api.column(5).footer() ).html(
+                    api.column(5,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b),0)
+                );
+            }
+        });
+    })
+</script>
+   <%- include('../partials/footer.ejs') %>

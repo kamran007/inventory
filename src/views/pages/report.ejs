@@ -1,0 +1,133 @@
+<%- include('../partials/head.ejs') %>     
+            <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+                <!-- CONTENT BODY -->
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">
+                                <%= title %> Table
+                            </h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="reportTable">
+                                    <thead>
+                                        <tr>
+                                            <% if (title ==='Day Report'){ %> 
+                                                <th scope="col" class="text-left">Date</th>
+                                            <% }else { %>
+                                                <th scope="col" class="text-left text-uppercase">Month With Year</th>
+                                            <% } %> 
+                                            <th scope="col" class="text-left text-uppercase">Sale</th>
+                                            <th scope="col" class="text-left text-uppercase">Paid</th>
+                                            <th scope="col" class="text-left text-uppercase">Due</th>
+                                            <th scope="col" class="text-left text-uppercase"> Sale Profit</th>
+                                            <th scope="col" class="text-left text-uppercase"> Product Buying</th>
+                                            <th scope="col" class="text-left text-uppercase">Cost</th>
+                                            <% if (title ==='Month Report'){ %> 
+                                            <th scope="col" class="text-left text-uppercase"> Profit</th>
+                                            <% } %>      
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (let summary of summarys){ %>
+                                            <tr>
+                                                <% if (title ==='Day Report'){ %> 
+                                                    <td scope="col" class="text-left">
+                                                        <%= new Date(summary._id).toLocaleString('en-Us',{day:'2-digit', weekday:'long',month:'long',year:'numeric'})%>
+                                                    </td>
+                                                 <% }else { %>
+                                                    <td scope="col" class="text-left">
+                                                        <% let date = new Date(); date.setMonth(summary._id.month -1); date.setFullYear(summary._id.year) %> 
+                                                        <%= new Date(date).toLocaleString('en-Us',{month:'long',year:'numeric'}) %>
+                                                    </td>
+                                                 <% } %>
+                                                <td>
+                                                    &#2547; <%= summary.totalPayable %>
+                                                </td>
+                                                <td>
+                                                    &#2547; <%= summary.totalPaid %>
+                                                </td>
+                                                <td>
+                                                    &#2547; <%= summary.totalDue %>
+                                                </td>
+                                                <td>
+                                                    &#2547; <%= summary.totalProfit.toFixed(2) %>
+                                                </td>
+                                                <td>
+                                                    &#2547; <%=summary.totalCost %>
+                                                </td>
+                                                <td>
+                                                    &#2547; <%=summary.additionalCost  %>
+                                                </td>
+                                                <% if (title ==='Month Report'){ %>
+                                                <td>
+                                                    &#2547; <%=summary.totalProfit.toFixed(2) - summary.additionalCost  %>
+                                                </td>
+                                                <% } %>
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <% if (title ==='Month Report'){ %>
+                                            <td></td>
+                                            <% } %>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <%- include('../partials/alert.ejs') %>
+                            <!-- drawer -->
+            <%- include('../partials/sidebar.ejs') %> 
+
+        </div>
+        <!-- // END drawer-layout -->
+    </div>
+    <%- include('../partials/tail.ejs') %>
+    <script>
+        $(document).ready(()=>{
+            $('#reportTable').DataTable({
+                order: [[0,'desc']],
+                footerCallback: function (tfoot,data,start,end,display){
+                let api = this.api();
+                $( api.column(1).footer() ).html(
+                    api.column(1,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0).toLocaleString()
+                );
+                $( api.column(2).footer() ).html(
+                    api.column(2,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0).toLocaleString()
+                );
+                $( api.column(3).footer() ).html(
+                    api.column(3,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0).toLocaleString()
+                );
+                $( api.column(4).footer() ).html(
+                    api.column(4,{search:'applied'}).data().reduce((a,b)=> parseFloat(a)+parseFloat(b.split(' ')[1]),0).toFixed(2).toLocaleString()
+                );
+                $( api.column(5).footer() ).html(
+                    api.column(5,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0).toLocaleString()
+                );
+                $( api.column(6).footer() ).html(
+                    api.column(6,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0).toLocaleString()
+                );
+                $( api.column(7).footer() ).html(
+                    api.column(7,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0).toLocaleString()
+                );
+                $( api.column(8).footer() ).html(
+                    api.column(8,{search:'applied'}).data().reduce((a,b)=> parseInt(a)+parseInt(b.split(' ')[1]),0).toLocaleString()
+                );
+            }
+            });
+        })
+    </script> 
+    <%- include('../partials/footer.ejs') %>

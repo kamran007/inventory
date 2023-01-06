@@ -16,12 +16,22 @@ $(document).ready(()=>{
         let len = table.rows.length;
         let c=[]
         let a =[]
+        let sum= 0;
         for(let i=0;i<len;i++){
             c[i]= table.rows[i].cells[0].innerHTML;
             a[i] = table.rows[i].cells[1].innerHTML
+            sum += Number(a[i])
         }
         $('#c_d').val(c);
         $('#c_a').val(a);
+        $('#total').val(sum)
+        let totalPrice = $('#totalPrice').val()
+        $('#totalCost').val(Number(sum)+Number(totalPrice))
+    })
+    $('#totalPrice').on('keyup',(event)=>{
+        let totalPrice = $('#totalPrice').val()
+        let total = $('#total').val()
+        $('#totalCost').val(Number(total)+Number(totalPrice))
     })
     $('#resetImport').on('click',()=>{
         $('#exporter').val('').change();

@@ -5,3 +5,11 @@
     height:250px;
     overflow-y: scroll;
   }
+
+  .theme-default[dir=ltr] .modal-backdrop{
+    display: none !important;
+  }
+.drawer-menu-item a.active{
+    font-weight: bold !important;
+    
+  }
